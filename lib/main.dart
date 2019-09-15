@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:messio/chat_app_bar.dart';
+import 'package:messio/conversation_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -39,13 +41,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Text('Hello world'),
-      ),
-    );
+    return ConversationPage();
   }
 }
