@@ -20,7 +20,7 @@ class _ConversationPageState extends State<ConversationPage> {
         body: Stack(
           children: <Widget>[
             ChatListWidget(),//Chat list
-            InputWidget() // The input widget
+            InputWidget(), // The input widget
           ],
         ),
       )

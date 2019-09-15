@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
 
-class ChatListWidget extends StatefulWidget {
-  ChatListWidget({Key key}) : super(key: key);
+import 'chat_item_widget.dart';
 
-  @override
-  _ChatListWidgetState createState() => _ChatListWidgetState();
-}
+class ChatListWidget extends StatelessWidget {
 
-class _ChatListWidgetState extends State<ChatListWidget> {
+  final ScrollController listScrollController = new ScrollController();
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    // A Flexible widget must be a descendant of a Row, Column, or Flex,
+    // https://api.flutter.dev/flutter/widgets/Flexible-class.html
+    return Column(
+      children: <Widget>[
+        Flexible(
+          child: ListView.builder(
+              padding: EdgeInsets.all(10.0),
+              itemBuilder: (context, index) => ChatItemWidget(index),
+              itemCount: 20,
+              reverse: true,
+              controller: listScrollController,
+          )
+        )
+      ]
+    );
   }
 }
