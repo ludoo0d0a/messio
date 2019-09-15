@@ -15,3 +15,8 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 # messio
+
+This app is my sources to learn Flutter by following course : [60 Days
+Of Flutter : Building a Messenger from
+Scratch](https://medium.com/@adityadroid/60-days-of-flutter-building-a-messenger-from-scratch-ab2c89e1fd0f)
+by [Aditya Gurjar](https://medium.com/@adityadroid)
