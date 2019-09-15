@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:messio/chat_app_bar.dart';
-import 'package:messio/conversation_page.dart';
+import 'package:messio/pages/ConversationPageList.dart';
+import 'package:messio/widget/ChatAppBar.dart';
+import 'package:messio/pages/ConversationPage.dart';
 
 void main() => runApp(MyApp());
 
@@ -22,25 +23,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.yellow,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: ConversationPageList(),
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-
-  final String title;
-
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  @override
-  Widget build(BuildContext context) {
-    return ConversationPage();
   }
 }

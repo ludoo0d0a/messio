@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'config/Palette.dart';
+import '../config/Palette.dart';
 
 class InputWidget extends StatelessWidget {
 

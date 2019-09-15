@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'chat_app_bar.dart';
-import 'chat_list_widget.dart';
-import 'input_widget.dart';
+import '../widget/ChatAppBar.dart';
+import '../widget/ChatListWidget.dart';
+import '../widget/InputWidget.dart';
 
 class ConversationPage extends StatefulWidget {
   ConversationPage({Key key}) : super(key: key);
