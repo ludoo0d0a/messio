@@ -18,8 +18,37 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
         )]),
         child: Container(
           color: Palette.primaryBackgroundColor,
-          child:
-            Text('Simple text')
+          child: Row(
+            children: <Widget>[
+              //These are text items
+              Expanded(
+                flex: 7,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      //first row containing the name and login
+                      Container(
+                        child: Text('name / login'),
+                      ),
+                      //second row containing the buttons for media (Photos / Videos / Files)
+                      Container(
+                        child: Text('Photos / Videos / Files'),
+                      )
+                    ],
+                  )
+                ),
+              ),
+              //This is the display picture
+              Expanded(
+                flex: 3,
+                child: Center(
+                  child: Text('Picture'),
+                ),
+              )
+
+            ],
+          )
         )
       ),
     );
