@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:messio/pages/ConversationPageList.dart';
-import 'package:messio/widget/ChatAppBar.dart';
-import 'package:messio/pages/ConversationPage.dart';
 
 void main() => runApp(MyApp());
 
