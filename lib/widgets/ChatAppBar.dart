@@ -47,10 +47,14 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                               Expanded(
                               flex: 2,
                               child: Center(
-                                  child: Icon(
-                                    Icons.attach_file,
-                                    color: Palette.secondaryColor,
-                                  ))),
+                                  child: IconButton(
+                                    icon: Icon(
+                                        Icons.attach_file,
+                                        color: Palette.secondaryColor
+                                    ),
+                                    onPressed: () => {}
+                                  ),
+                              )),
                               // 6/8 : texts on 2 rows
                               Expanded(
                                 flex: 6,
