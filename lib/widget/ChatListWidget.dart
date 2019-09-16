@@ -8,11 +8,7 @@ class ChatListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // A Flexible widget must be a descendant of a Row, Column, or Flex,
-    // https://api.flutter.dev/flutter/widgets/Flexible-class.html
-    return Column(
-      children: <Widget>[
-        Flexible(
+    return Flexible(
           child: ListView.builder(
               padding: EdgeInsets.all(10.0),
               itemBuilder: (context, index) => ChatItemWidget(index),
@@ -20,8 +16,6 @@ class ChatListWidget extends StatelessWidget {
               reverse: true,
               controller: listScrollController,
           )
-        )
-      ]
     );
   }
 }

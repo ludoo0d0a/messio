@@ -19,8 +19,12 @@ class _ConversationPageState extends State<ConversationPage> {
         appBar: ChatAppBar(),
         body: Stack(
           children: <Widget>[
-            ChatListWidget(),//Chat list
-            InputWidget(), // The input widget
+            Column(
+              children: <Widget>[
+                ChatListWidget(),//Chat list
+                InputWidget(), // The input widget
+              ],
+            )
           ],
         ),
       )
