@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:messio/pages/ConversationPageList.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(MessioApp());
 
-class MyApp extends StatelessWidget {
+class MessioApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Messio',
       theme: ThemeData(
         // This is the theme of your application.
         //

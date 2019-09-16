@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../widget/ChatAppBar.dart';
-import '../widget/ChatListWidget.dart';
-import '../widget/InputWidget.dart';
+import 'package:messio/widgets/ChatAppBar.dart';
+import 'package:messio/widgets/ChatListWidget.dart';
+import 'package:messio/widgets/InputWidget.dart';
 
 class ConversationPage extends StatefulWidget {
-  ConversationPage({Key key}) : super(key: key);
+//  ConversationPage({Key key}) : super(key: key);
+
+  const ConversationPage();
 
   @override
   _ConversationPageState createState() => _ConversationPageState();
