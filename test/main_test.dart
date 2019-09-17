@@ -9,6 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:messio/main.dart';
 import 'package:messio/pages/ConversationPageList.dart';
+import 'package:messio/pages/ConversationPageSlide.dart';
 
 void main() {
 //  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
@@ -30,6 +31,7 @@ void main() {
   testWidgets('Checking if hello world shows up', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(MessioApp());
-    expect(find.byType(ConversationPageList), findsOneWidget);
+//    expect(find.byType(ConversationPageList), findsOneWidget);
+    expect(find.byType(ConversationPageSlide), findsOneWidget);
   });
 }

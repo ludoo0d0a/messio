@@ -5,7 +5,7 @@ import 'package:messio/widgets/InputWidget.dart';
 import 'ConversationPage.dart';
 
 class ConversationPageSlide extends StatefulWidget {
-  ConversationPageSlide({Key key}) : super(key: key);
+  const ConversationPageSlide();
 
   @override
   _ConversationPageSlideState createState() => _ConversationPageSlideState();
