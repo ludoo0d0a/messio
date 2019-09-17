@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'ConversationPage.dart';
 
 class ConversationPageList extends StatefulWidget {
