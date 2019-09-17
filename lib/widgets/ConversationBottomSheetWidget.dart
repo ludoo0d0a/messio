@@ -19,10 +19,28 @@ class _ConversationBottomSheetWidgetState
     return Scaffold(
       body: ListView(
         children: <Widget>[
-          NavigationPillWidget(),
-          Center(
-            child: Text('Messages')
+          GestureDetector(
+            child: ListView(
+              shrinkWrap: true,
+              physics: ClampingScrollPhysics(),
+              children: <Widget>[
+                NavigationPillWidget(),
+                Center(
+                    child: Text('Messages')
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
+            onVerticalDragEnd: (details) {
+              print('Dragged Down');
+              if (details.primaryVelocity > 50) {
+                Navigator.pop(context);
+              }
+            },
           ),
+
           ListView.separated(
             // Listview inside ListView requires these 2 attributes for proper scroll
             shrinkWrap: true,
