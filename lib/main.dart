@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:messio/pages/ConversationPageList.dart';
+import 'package:messio/pages/ConversationPageSlide.dart';
 
 void main() => runApp(MessioApp());
 
@@ -21,7 +21,8 @@ class MessioApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.yellow,
       ),
-      home: ConversationPageList(),
+      home: ConversationPageSlide(),
+//      home: ConversationPageList(),
     );
   }
 }

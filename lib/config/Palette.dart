@@ -14,4 +14,6 @@ class Palette{
   static Color greyColor = Colors.grey;
 
   static Color accentColor = Colors.blueAccent;
+
+  static Color chatBackgroundColor = Colors.white;
 }

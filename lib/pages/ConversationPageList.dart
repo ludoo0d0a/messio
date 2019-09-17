@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'ConversationPage.dart';
 
 class ConversationPageList extends StatefulWidget {
-//  ConversationPageList({Key key}) : super(key: key);
   const ConversationPageList();
 
   @override
