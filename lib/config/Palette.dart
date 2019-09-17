@@ -12,4 +12,6 @@ class Palette{
   static Color selfMessageColor = Colors.white;
   static Color otherMessageColor = Color(0xff3f3f3f);
   static Color greyColor = Colors.grey;
-} 
+
+  static Color accentColor = Colors.blueAccent;
+}
