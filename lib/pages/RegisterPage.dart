@@ -5,6 +5,7 @@ import 'package:messio/config/Styles.dart';
 
 import 'package:messio/widgets/ChatAppBar.dart';
 import 'package:messio/widgets/ChatListWidget.dart';
+import 'package:messio/widgets/CircleIndicatorWidget.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage();
@@ -49,18 +50,37 @@ class _RegisterPageState extends State<RegisterPage> {
               Palette.gradientStartColor,
               Palette.gradientEndColor
             ])),
-        child: PageView(
-          controller: pageController,
-//          physics: NeverScrollableScrollPhysics(),
-          onPageChanged: (int page) =>
-              updatePageState(page),
+        child: Stack(
+          alignment: AlignmentDirectional.bottomCenter,
           children: <Widget>[
-            buidPageOne(),
-            buidPageTwo(),
+//            AnimatedContainer(
+//               duration: Duration(milliseconds: 1500),
+//               child:
+               PageView(
+                  controller: pageController,
+    //          physics: NeverScrollableScrollPhysics(),
+                  onPageChanged: (int page) => updatePageState(page),
+                  children: <Widget>[
+                    buidPageOne(),
+                    buidPageTwo(),
+                  ],
+                ),
+//             ),
+              // Pager indicator
+              Container(
+                margin: EdgeInsets.only(bottom: 30),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    for (int i = 0; i < 2; i++)
+                      CircleIndicator(i == currentPage),
+                  ],
+                ),
+              ),
+
           ],
         )
-
-
       )
     );
   }
@@ -78,6 +98,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 backgroundImage: Image.asset(Assets.user).image,
                 radius: 60,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Icon(
                       Icons.camera,
@@ -110,7 +131,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 10,
-                  ),),
+                    height: 4
+                  ),
+              ),
               Text('Years', style: Styles.textLight)
             ],
           ),
@@ -133,6 +156,19 @@ class _RegisterPageState extends State<RegisterPage> {
             child: TextField(
               textAlign: TextAlign.center,
               style: Styles.subHeadingLight,
+              decoration: InputDecoration(
+                hintText: '@username',
+                hintStyle: Styles.hintTextLight,
+                contentPadding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                focusedBorder: OutlineInputBorder(
+                  borderSide:
+                  BorderSide(color: Palette.primaryColor, width: 0.1),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide:
+                  BorderSide(color: Palette.primaryColor, width: 0.1),
+                ),
+              ),
             ),
           )
 
@@ -188,4 +224,5 @@ class _RegisterPageState extends State<RegisterPage> {
       currentPage = index;
     });
   }
+  
 }
