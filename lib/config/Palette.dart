@@ -5,8 +5,8 @@ class Palette{
   static Color primaryColor = Colors.white;
   static Color accentColor =  Color(0xff4fc3f7);
   static Color gradientStartColor = accentColor;
-//  static Color gradientEndColor = Color(0xff6aa8fd);
-  static Color gradientEndColor = Color(0xffff2222);
+  static Color gradientEndColor = Color(0xff6aa8fd);
+//  static Color gradientEndColor = Color(0xffff2222);
   static Color secondaryColor = Colors.black;
   static Color primaryTextColor = Colors.black;
   static Color primaryTextColorLight = Colors.white;

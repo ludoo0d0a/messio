@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:messio/pages/ConversationPageSlide.dart';
+//import 'package:messio/pages/ConversationPageSlide.dart';
 import 'package:messio/pages/RegisterPage.dart';
 
 void main() => runApp(MessioApp());

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:messio/config/Assets.dart';
 import 'package:messio/config/Palette.dart';
 import 'package:messio/config/Styles.dart';
-
-import 'package:messio/widgets/ChatAppBar.dart';
-import 'package:messio/widgets/ChatListWidget.dart';
+//import 'package:messio/pages/ConversationPageSlide.dart';
+//import 'package:messio/widgets/ChatAppBar.dart';
+//import 'package:messio/widgets/ChatListWidget.dart';
 import 'package:messio/widgets/CircleIndicatorWidget.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -78,6 +78,30 @@ class _RegisterPageState extends State<RegisterPage> {
                   ],
                 ),
               ),
+
+            // Fab button on bottom right
+            AnimatedOpacity(
+              opacity: currentPage == 1 ? 1.0 : 0.0, //shows only on page 1
+              duration: Duration(milliseconds: 500),
+              child: Container(
+                margin: EdgeInsets.only(right: 20, bottom: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    FloatingActionButton(
+                      onPressed: () {},
+                      elevation: 0,
+                      backgroundColor: Palette.primaryColor,
+                      child: Icon(
+                        Icons.done,
+                        color: Palette.accentColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
 
           ],
         )
@@ -224,5 +248,11 @@ class _RegisterPageState extends State<RegisterPage> {
       currentPage = index;
     });
   }
-  
+
+//  navigateToHome() {
+//    Navigator.push(
+//      context,
+//      SlideLeftRoute(page: ConversationPageSlide()),
+//    );
+//  }
 }
