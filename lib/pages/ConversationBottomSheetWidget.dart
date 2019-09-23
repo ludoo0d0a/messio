@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:messio/config/Palette.dart';
 
-import 'ChatRowWidget.dart';
-import 'NavigationPillWidget.dart';
+import '../widgets/ChatRowWidget.dart';
+import '../widgets/NavigationPillWidget.dart';
 
 class ConversationBottomSheetWidget extends StatefulWidget {
   ConversationBottomSheetWidget({Key key}) : super(key: key);

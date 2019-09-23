@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:messio/widgets/ConversationBottomSheetWidget.dart';
+import 'package:messio/pages/ConversationBottomSheetWidget.dart';
 import 'package:messio/widgets/InputWidget.dart';
 
 import 'ConversationPage.dart';
