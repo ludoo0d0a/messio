@@ -40,7 +40,7 @@ class _RegisterPageState extends State<RegisterPage>
 
   @override
   void initState() {
-    pageController.addListener(() {
+    
 
       WidgetsBinding.instance.addObserver(this);
       usernameFieldAnimationController =
@@ -67,7 +67,7 @@ class _RegisterPageState extends State<RegisterPage>
           usernameFieldAnimationController.reverse();
         }
       });
-
+      pageController.addListener(() {
       setState(() {
         begin = Alignment(pageController.page, pageController.page);
         end = Alignment(1 - pageController.page, 1 - pageController.page);

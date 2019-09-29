@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 //import 'package:messio/pages/ConversationPageSlide.dart';
 import 'package:messio/pages/RegisterPage.dart';
 
+import 'config/Palette.dart';
+
 void main() => runApp(MessioApp());
 
 class MessioApp extends StatelessWidget {
@@ -10,6 +12,7 @@ class MessioApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Messio',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -20,7 +23,7 @@ class MessioApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.yellow,
+        primaryColor: Palette.primaryColor,
       ),
 //      home: ConversationPageSlide(),
       home: RegisterPage(),
