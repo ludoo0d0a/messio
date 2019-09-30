@@ -55,15 +55,15 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
         yield AuthInProgress(); //show the progress bar
         final isSignedIn = await authenticationRepository.isLoggedIn(); // check if user is signed in
         if (isSignedIn) {
-          final user = await authenticationRepository.getCurrentUser();
+          final firebaseUser = await authenticationRepository.getCurrentUser();
           bool isProfileComplete =
-          await userDataRepository.isProfileComplete(user.uid); // if he is signed in then check if his profile is complete
+          await userDataRepository.isProfileComplete(firebaseUser.uid); // if he is signed in then check if his profile is complete
           print(isProfileComplete);
           if (isProfileComplete) {      //if profile is complete then redirect to the home page
             yield ProfileUpdated();
           } else {
-            yield Authenticated(user); // else yield the authenticated state and redirect to profile page to complete profile.
-            dispatch(LoggedIn(user)); // also disptach a login event so that the data from gauth can be prefilled
+            yield Authenticated(firebaseUser); // else yield the authenticated state and redirect to profile page to complete profile.
+            dispatch(LoggedIn(firebaseUser)); // also disptach a login event so that the data from gauth can be prefilled
           }
         } else {
           yield UnAuthenticated(); // is not signed in then show the home page

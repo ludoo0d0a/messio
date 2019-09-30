@@ -62,7 +62,11 @@ class _ChatAppBarState extends State<ChatAppBar> {
         builder: (context, state) {
 
           profileImage = Image.asset(Assets.user).image;
-          if (state is PreFillData ) {
+          if (state is ProfileUpdated ) {
+//            profileImage = Image.network(state.user.photoUrl).image;
+            profileImage = null;
+          // TODO : load profile
+          }else if (state is PreFillData ) {
             age = state.user.age != null ? state.user.age : 18;
             profileImage = Image.network(state.user.photoUrl).image;
             userTitle = state.user.name != null ? state.user.name : userTitleDefault;
@@ -72,118 +76,119 @@ class _ChatAppBarState extends State<ChatAppBar> {
             profileImage = Image.file(profileImageFile).image;
           }
 
-          return Container(
-            decoration: new BoxDecoration(boxShadow: [ //adds a shadow to the appbar
-              new BoxShadow(
-                color: Colors.black,
-                blurRadius: 5.0,
-            )]),
-            child: Container(
-              color: Palette.primaryBackgroundColor,
-              padding: EdgeInsets.only(top: 10, bottom: 10),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: 7,
-                    child: Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          //first row containing the name and login
-                          Expanded(
-                            flex: 7,
-                            child: Container(
-//                            height: 70 - (width * .06),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+            return Container(
+                decoration: new BoxDecoration(boxShadow: [ //adds a shadow to the appbar
+                  new BoxShadow(
+                    color: Colors.black,
+                    blurRadius: 5.0,
+                  )]),
+                child: Container(
+                    color: Palette.primaryBackgroundColor,
+                    padding: EdgeInsets.only(top: 10, bottom: 10),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 7,
+                          child: Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
-                                  // 2/8 : left icon
+                                  //first row containing the name and login
                                   Expanded(
-                                  flex: 2,
-                                  child: Center(
-                                      child: IconButton(
-                                        icon: Icon(
-                                            Icons.attach_file,
-                                            color: Palette.secondaryColor
-                                        ),
-                                        onPressed: () => {}
-                                      ),
-                                  )),
-                                  // 6/8 : texts on 2 rows
-                                  Expanded(
-                                    flex: 6,
+                                    flex: 7,
                                     child: Container(
-                                        child: Column(
+//                            height: 70 - (width * .06),
+                                        child: Row(
                                           crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          mainAxisSize: MainAxisSize.min,
-
                                           children: <Widget>[
-                                            Text(userTitle, style: textHeading),
-                                            Text(userNickname, style: textStyle)
+                                            // 2/8 : left icon
+                                            Expanded(
+                                                flex: 2,
+                                                child: Center(
+                                                  child: IconButton(
+                                                      icon: Icon(
+                                                          Icons.attach_file,
+                                                          color: Palette.secondaryColor
+                                                      ),
+                                                      onPressed: () => {}
+                                                  ),
+                                                )),
+                                            // 6/8 : texts on 2 rows
+                                            Expanded(
+                                              flex: 6,
+                                              child: Container(
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    mainAxisSize: MainAxisSize.min,
+
+                                                    children: <Widget>[
+                                                      Text(userTitle, style: textHeading),
+                                                      Text(userNickname, style: textStyle)
+                                                    ],
+                                                  )
+                                              ),
+                                            )
+
                                           ],
                                         )
                                     ),
+                                  ),
+                                  //second row containing the buttons for media (Photos / Videos / Files)
+                                  Expanded(
+                                    flex: 3,
+                                    child: Container(
+                                      // height: 23,
+                                      padding: EdgeInsets.fromLTRB(20, 5, 5, 0),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text(
+                                            'Photos',
+                                            style: textStyle,
+                                          ),
+                                          VerticalDivider(
+                                            width: 30,
+                                            color: Palette.primaryTextColor,
+                                          ),
+                                          Text(
+                                            'Videos',
+                                            style: textStyle,
+                                          ),
+                                          VerticalDivider(
+                                            width: 30,
+                                            color: Palette.primaryTextColor,
+                                          ),
+                                          Text('Files', style: textStyle)
+                                        ],
+                                      ),
+                                    ),
                                   )
-
                                 ],
                               )
-                            ),
                           ),
-                          //second row containing the buttons for media (Photos / Videos / Files)
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              // height: 23,
-                              padding: EdgeInsets.fromLTRB(20, 5, 5, 0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(
-                                    'Photos',
-                                    style: textStyle,
-                                  ),
-                                  VerticalDivider(
-                                    width: 30,
-                                    color: Palette.primaryTextColor,
-                                  ),
-                                  Text(
-                                    'Videos',
-                                    style: textStyle,
-                                  ),
-                                  VerticalDivider(
-                                    width: 30,
-                                    color: Palette.primaryTextColor,
-                                  ),
-                                  Text('Files', style: textStyle)
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      )
-                    ),
-                  ),
-                  //This is the display picture
-                  Expanded(
-                    flex: 3,
-                    child: Container(
-                      child: Center(
-                        child: CircleAvatar(
-                          radius: 30,
-                          backgroundImage: profileImage
+                        ),
+                        //This is the display picture
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            child: Center(
+                                child: CircleAvatar(
+                                    radius: 30,
+                                    backgroundImage: profileImage
 //                      backgroundImage: Image.asset(
 //                        Assets.user,
 //                      ).image,
+                                )
+                            ),
+                          ),
                         )
-                      ),
-                    ),
-                  )
-                ],
-              )
-            )
-          );
+                      ],
+                    )
+                )
+            );
+
         }
       ),
     );
