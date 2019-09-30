@@ -54,6 +54,8 @@ class ProfileUpdateInProgress extends AuthenticationState{
 }
 
 class ProfileUpdated extends AuthenticationState{
+//  final User user;
+//  ProfileUpdated(this.user);
   @override
   String toString() => 'ProfileComplete';
 }
