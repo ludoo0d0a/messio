@@ -74,7 +74,6 @@ lib/generated_plugin_registrant.dart
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
-!/android/**/google-services.json
-!/ios/**/GoogleService-Info.plist
-!/ios/Runner/GoogleService-Info.plist
-!/android/app/google-services.json
+
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
