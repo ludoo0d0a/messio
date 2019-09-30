@@ -4,7 +4,9 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class StorageProvider {
-  final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+  FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+  StorageProvider({this.firebaseStorage});
+
   @override
   Future<String> uploadImage(File file, String path) async{
     StorageReference reference = firebaseStorage.ref().child(path); // get a reference to the path of the image directory

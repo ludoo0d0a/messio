@@ -5,6 +5,8 @@ import 'package:messio/widgets/ChatAppBar.dart';
 import 'package:messio/widgets/ChatListWidget.dart';
 
 void main(){
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   const MaterialApp app = MaterialApp(
     home: Scaffold(
         body:  const ConversationPage()

@@ -27,7 +27,7 @@ class _ChatAppBarState extends State<ChatAppBar> {
 
   File profileImageFile;
   ImageProvider profileImage;
-  AuthenticationBloc authenticationBloc;
+//  AuthenticationBloc authenticationBloc;
   static const String userTitleDefault = "--userTitle";
   static const String userNicknameDefault = "--nickName";
   String userTitle = userTitleDefault;
@@ -40,7 +40,7 @@ class _ChatAppBarState extends State<ChatAppBar> {
   }
 
   void initApp() async{
-    authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
+//    authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
 //    authenticationBloc.state.listen((state) {
 //      if (state is Authenticated) {
 //        updatePageState(1);
@@ -58,25 +58,28 @@ class _ChatAppBarState extends State<ChatAppBar> {
 //    double width = MediaQuery.of(context).size.width; // calculate the screen width
 
     return Material(
-      child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-        builder: (context, state) {
+      child:
 
-          profileImage = Image.asset(Assets.user).image;
-          if (state is ProfileUpdated ) {
+//      BlocBuilder<AuthenticationBloc, AuthenticationState>(
+//        builder: (context, state) {
+//
+//          profileImage = Image.asset(Assets.user).image;
+//          if (state is ProfileUpdated ) {
+////            profileImage = Image.network(state.user.photoUrl).image;
+//            profileImage = null;
+//          // TODO : load profile
+//          }else if (state is PreFillData ) {
+//            age = state.user.age != null ? state.user.age : 18;
 //            profileImage = Image.network(state.user.photoUrl).image;
-            profileImage = null;
-          // TODO : load profile
-          }else if (state is PreFillData ) {
-            age = state.user.age != null ? state.user.age : 18;
-            profileImage = Image.network(state.user.photoUrl).image;
-            userTitle = state.user.name != null ? state.user.name : userTitleDefault;
-            userNickname = state.user.username != null ? state.user.username : userNicknameDefault;
-          } else if (state is ReceivedProfilePicture) {
-            profileImageFile = state.file;
-            profileImage = Image.file(profileImageFile).image;
-          }
+//            userTitle = state.user.name != null ? state.user.name : userTitleDefault;
+//            userNickname = state.user.username != null ? state.user.username : userNicknameDefault;
+//          } else if (state is ReceivedProfilePicture) {
+//            profileImageFile = state.file;
+//            profileImage = Image.file(profileImageFile).image;
+//          }
 
-            return Container(
+//            return
+            Container(
                 decoration: new BoxDecoration(boxShadow: [ //adds a shadow to the appbar
                   new BoxShadow(
                     color: Colors.black,
@@ -187,10 +190,10 @@ class _ChatAppBarState extends State<ChatAppBar> {
                       ],
                     )
                 )
-            );
+            )
 
-        }
-      ),
+//        } // bloc
+//      ), // bloc
     );
   }
 
