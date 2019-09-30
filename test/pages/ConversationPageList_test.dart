@@ -4,6 +4,8 @@ import 'package:messio/pages/ConversationPage.dart';
 import 'package:messio/pages/ConversationPageList.dart';
 
 void main(){
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   const MaterialApp app = MaterialApp(
     home: Scaffold(
         body:  const ConversationPageList()

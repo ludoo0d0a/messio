@@ -68,12 +68,13 @@
 # Web related
 lib/generated_plugin_registrant.dart
 
+# Keys
+android/**/google-services.json
+ios/**/GoogleService-Info.plist
+
 # Exceptions to above rules.
 !**/ios/**/default.mode1v3
 !**/ios/**/default.mode2v3
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
-
-android/app/google-services.json
-ios/Runner/GoogleService-Info.plist

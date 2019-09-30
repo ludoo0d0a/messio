@@ -5,6 +5,8 @@ import 'package:messio/pages/ConversationPageSlide.dart';
 import 'package:messio/widgets/InputWidget.dart';
 
 void main(){
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   const MaterialApp app = MaterialApp(
     home: Scaffold(
         body:  const ConversationPageSlide()
