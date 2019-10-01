@@ -26,7 +26,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
 
   @override
-  AuthenticationState get initialState => InitialAuthenticationState();
+  AuthenticationState get initialState => Uninitialized();
 
   @override
   Stream<AuthenticationState> mapEventToState(

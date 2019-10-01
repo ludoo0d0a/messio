@@ -11,8 +11,6 @@ abstract class AuthenticationState extends Equatable {
   AuthenticationState([List props = const <dynamic>[]]) : super(props);
 }
 
-class InitialAuthenticationState extends AuthenticationState {}
-
 class Uninitialized extends AuthenticationState{
   @override
   String toString() => 'Uninitialized';
