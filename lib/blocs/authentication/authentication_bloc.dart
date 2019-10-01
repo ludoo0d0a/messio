@@ -63,7 +63,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
             yield ProfileUpdated();
           } else {
             yield Authenticated(firebaseUser); // else yield the authenticated state and redirect to profile page to complete profile.
-            dispatch(LoggedIn(firebaseUser)); // also disptach a login event so that the data from gauth can be prefilled
+            dispatch(LoggedIn(firebaseUser)); // also dispatch a login event so that the data from gauth can be prefilled
           }
         } else {
           yield UnAuthenticated(); // is not signed in then show the home page

@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:messio/blocs/authentication/bloc.dart';
 import 'package:messio/config/Assets.dart';
 import 'package:messio/config/Palette.dart';
+import 'package:messio/config/Transitions.dart';
+import 'package:messio/pages/ContactList.dart';
 
 
 class ChatAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -177,16 +179,16 @@ class _ChatAppBarState extends State<ChatAppBar> {
                           flex: 3,
                           child: Container(
                             child: Center(
-                                child: CircleAvatar(
-                                    radius: 30,
-                                    backgroundImage: profileImage
-//                      backgroundImage: Image.asset(
-//                        Assets.user,
-//                      ).image,
-                                )
+                                child: IconButton(
+                                    icon: CircleAvatar(
+                                        radius: 30,
+                                        backgroundImage: profileImage
+                                    ),
+                                    onPressed: () => navigateToHome(),
+                                ),
+                            )
                             ),
                           ),
-                        )
                       ],
                     )
                 )
@@ -196,5 +198,15 @@ class _ChatAppBarState extends State<ChatAppBar> {
 //      ), // bloc
     );
   }
+
+  // Plug on avatar click for now
+  navigateToHome() {
+    Navigator.push(
+      context,
+//      SlideLeftRoute(page: ConversationPageSlide()),
+      SlideLeftRoute(page: ContactListPage()),
+    );
+  }
+
 
 }

@@ -3,23 +3,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationProvider extends BaseAuthenticationProvider {
-  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  GoogleSignIn googleSignIn = GoogleSignIn();
+  final FirebaseAuth firebaseAuth;
+  final GoogleSignIn googleSignIn;
 
-  AuthenticationProvider({this.firebaseAuth, this.googleSignIn});
+  AuthenticationProvider({FirebaseAuth firebaseAuth, GoogleSignIn googleSignIn}):
+        firebaseAuth= firebaseAuth ?? FirebaseAuth.instance, googleSignIn = googleSignIn ?? GoogleSignIn();
 
   @override
   Future<FirebaseUser> signInWithGoogle() async {
-    final GoogleSignInAccount account =
-    await googleSignIn.signIn(); //show the goggle login prompt
-    final GoogleSignInAuthentication authentication =
-    await account.authentication; //get the authentication object
+    final GoogleSignInAccount account = await googleSignIn.signIn(); //show the goggle login prompt
+    final GoogleSignInAuthentication authentication = await account.authentication; //get the authentication object
     final AuthCredential credential = GoogleAuthProvider.getCredential(
-      //retreive the authentication credentials
+      //retrieve the authentication credentials
         idToken: authentication.idToken,
         accessToken: authentication.accessToken);
-    await firebaseAuth.signInWithCredential(
-        credential); //sign in to firebase using the generated credentials
+    await firebaseAuth.signInWithCredential( credential); //sign in to firebase using the generated credentials
     return firebaseAuth.currentUser(); //return the firebase user created
   }
 

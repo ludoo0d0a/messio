@@ -9,6 +9,7 @@ import 'package:messio/config/Assets.dart';
 import 'package:messio/config/Palette.dart';
 import 'package:messio/config/Styles.dart';
 import 'package:messio/config/Transitions.dart';
+import 'package:messio/pages/ContactList.dart';
 //import 'package:messio/pages/ConversationPageSlide.dart';
 //import 'package:messio/widgets/ChatAppBar.dart';
 //import 'package:messio/widgets/ChatListWidget.dart';
@@ -446,7 +447,8 @@ class _RegisterPageState extends State<RegisterPage>
   navigateToHome() {
     Navigator.push(
       context,
-      SlideLeftRoute(page: ConversationPageSlide()),
+//      SlideLeftRoute(page: ConversationPageSlide()),
+      SlideLeftRoute(page: ContactListPage()),
     );
   }
 
@@ -462,9 +464,9 @@ class _RegisterPageState extends State<RegisterPage>
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               FloatingActionButton(
-//                onPressed: () => navigateToHome(),
-                onPressed: () => authenticationBloc.dispatch(SaveProfile(
-                    profileImageFile, age, usernameController.text)),
+                onPressed: () => navigateToHome(),
+//                onPressed: () => authenticationBloc.dispatch(SaveProfile(
+//                    profileImageFile, age, usernameController.text)),
                 elevation: 0,
                 backgroundColor: Palette.primaryColor,
                 child: Icon(
