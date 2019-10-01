@@ -3,6 +3,8 @@ import 'package:flutter/rendering.dart';
 import 'package:messio/config/Palette.dart';
 import 'package:messio/config/Styles.dart';
 import 'package:messio/widgets/ContactRowWidget.dart';
+import 'package:messio/widgets/GradientFab.dart';
+import 'package:messio/widgets/QuickScrollbar.dart';
 
 class ContactListPage extends StatefulWidget {
   static const String routeName = "/contactList";
@@ -113,8 +115,16 @@ class _ContactListPageState extends State<ContactListPage> with TickerProviderSt
                 }, childCount: nameList.length),
               )
             ]),
+            Container(
+              margin: EdgeInsets.only(top: 190),
+              child: QuickScrollBar(
+                nameList: nameList,
+                scrollController: scrollController,
+              ),
+            ),
           ],
         ),
+        floatingActionButton: GradientFab(animation: animation, vsync: this),
       ),
     );
   }
