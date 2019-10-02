@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:messio/blocs/authentication/model/user.dart';
 import 'package:messio/blocs/authentication/provider/UserDataProvider.dart';
+import 'package:messio/blocs/contacts/model/contact.dart';
 
 class UserDataRepository {
   BaseUserDataProvider userDataProvider = UserDataProvider();
@@ -14,4 +15,13 @@ class UserDataRepository {
 
   Future<bool> isProfileComplete(String uid) =>
       userDataProvider.isProfileComplete(uid);
+
+
+  Stream<List<Contact>> getContacts() =>
+      userDataProvider.getContacts();
+
+  Future<void> addContact(String username) =>
+      userDataProvider.addContact(username);
+
+  Future<User> getUser(String username) => userDataProvider.getUser(username);
 }
