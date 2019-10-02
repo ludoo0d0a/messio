@@ -89,7 +89,9 @@ class UserDataProvider extends BaseUserDataProvider {
 
   @override
   Future<void> addContact(String username) async {
-    User user = await getUser(username);
+    // TODO : why getUser ?? if new, it crashes...
+
+//    User user = await getUser(username);
     String uid = SharedObjects.prefs.get(Constants.sessionUid);
     DocumentReference ref = fireStoreDb.collection(Paths.usersPath).document(uid); //reference of the user's document node in database/users. This node is created using uid
     final DocumentSnapshot currentDocument = await ref.get();
@@ -107,7 +109,7 @@ class UserDataProvider extends BaseUserDataProvider {
   @override
   Future<User> getUser(String username) async {
     String uid = await getUidByUsername(username);
-    DocumentReference ref = fireStoreDb.collection(Paths.usersPath).document(username);
+    DocumentReference ref = fireStoreDb.collection(Paths.usersPath).document(uid);
     DocumentSnapshot documentSnapshot = await ref.get();
     print(documentSnapshot.exists);
     if (documentSnapshot != null && documentSnapshot.exists) {

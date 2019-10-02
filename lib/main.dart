@@ -29,7 +29,7 @@ Future<void> main() async {
   runApp(
       MultiBlocProvider(
           providers: [
-            BlocProvider(
+            BlocProvider<AuthenticationBloc>(
               builder: (context) => AuthenticationBloc(
                   authenticationRepository: authRepository,
                   userDataRepository: userDataRepository,
