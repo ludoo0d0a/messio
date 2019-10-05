@@ -207,8 +207,8 @@ class _RegisterPageState extends State<RegisterPage>
 
           buildGoogleButtonWidget()
 
-    ]) // Column
-        ); // container
+      ]) // Column
+    ); // container
   }
 
 
@@ -220,9 +220,7 @@ class _RegisterPageState extends State<RegisterPage>
       // Text
       Container(
           margin: EdgeInsets.only(top: 30),
-          child:
-
-          Text('Messio Messenger',
+          child: Text('Messio Messenger',
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -464,9 +462,9 @@ class _RegisterPageState extends State<RegisterPage>
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               FloatingActionButton(
-                onPressed: () => navigateToHome(),
-//                onPressed: () => authenticationBloc.dispatch(SaveProfile(
-//                    profileImageFile, age, usernameController.text)),
+//                onPressed: () => navigateToHome(),
+                onPressed: () => authenticationBloc.dispatch(SaveProfile(
+                    profileImageFile, age, usernameController.text)),
                 elevation: 0,
                 backgroundColor: Palette.primaryColor,
                 child: Icon(

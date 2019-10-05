@@ -10,11 +10,11 @@ class UserDataRepository {
       userDataProvider.saveDetailsFromGoogleAuth(user);
 
   Future<User> saveProfileDetails(
-          String uid, String profileImageUrl, int age, String username) =>
-      userDataProvider.saveProfileDetails(uid, profileImageUrl, age, username);
+          String profileImageUrl, int age, String username) =>
+      userDataProvider.saveProfileDetails(profileImageUrl, age, username);
 
-  Future<bool> isProfileComplete(String uid) =>
-      userDataProvider.isProfileComplete(uid);
+  Future<bool> isProfileComplete() =>
+      userDataProvider.isProfileComplete();
 
 
   Stream<List<Contact>> getContacts() =>

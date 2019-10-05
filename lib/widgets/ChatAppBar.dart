@@ -35,6 +35,8 @@ class _ChatAppBarState extends State<ChatAppBar> {
   String userTitle = userTitleDefault;
   String userNickname = userNicknameDefault;
 
+  AuthenticationBloc authenticationBloc;
+
   @override
   void initState() {
     initApp();
@@ -42,7 +44,7 @@ class _ChatAppBarState extends State<ChatAppBar> {
   }
 
   void initApp() async{
-//    authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
+    authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
 //    authenticationBloc.state.listen((state) {
 //      if (state is Authenticated) {
 //        updatePageState(1);
@@ -58,6 +60,8 @@ class _ChatAppBarState extends State<ChatAppBar> {
     var textStyle = TextStyle(color: Palette.secondaryTextColor); // Text style for everything else
 
 //    double width = MediaQuery.of(context).size.width; // calculate the screen width
+
+    profileImage = Image.asset(Assets.user).image;
 
     return Material(
       child:
@@ -178,14 +182,24 @@ class _ChatAppBarState extends State<ChatAppBar> {
                         Expanded(
                           flex: 3,
                           child: Container(
-                            child: Center(
-                                child: IconButton(
+                            child: Column(
+                              children: <Widget>[
+                                Center(
+                                  child: IconButton(
                                     icon: CircleAvatar(
                                         radius: 30,
                                         backgroundImage: profileImage
                                     ),
                                     onPressed: () => navigateToHome(),
+                                  ),
                                 ),
+                                Center(
+                                  child: FlatButton(
+                                    child: Text('Logout'),
+                                    onPressed: () => logout(),
+                                  ),
+                                ),
+                              ],
                             )
                             ),
                           ),
@@ -206,6 +220,10 @@ class _ChatAppBarState extends State<ChatAppBar> {
 //      SlideLeftRoute(page: ConversationPageSlide()),
       SlideLeftRoute(page: ContactListPage()),
     );
+  }
+
+  logout() {
+    authenticationBloc.dispatch(ClickedLogout());
   }
 
 

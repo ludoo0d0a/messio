@@ -17,17 +17,9 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
   ) async* {
     print(event);
     if (event is FetchContactsEvent) {
-      try {
-        yield FetchingContactsState();
-        subscription?.cancel();
-        subscription = userDataRepository.getContacts().listen((contacts)=>{print('dispatching $contacts'),dispatch(ReceivedContactsEvent(contacts))});
-      } on MessioException catch(exception){
-        print(exception.errorMessage());
-        yield ErrorState(exception);
-      }
+      yield* mapFetchContactsEventToState();
     }
     if (event is ReceivedContactsEvent){
-      print('Received');
       //  yield FetchingContactsState();
       yield FetchedContactsState(event.contacts);
     }
@@ -38,7 +30,6 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
       yield* mapClickedContactEventToState();
     }
   }
-
 
   Stream<ContactsState> mapFetchContactsEventToState() async* {
     try {
@@ -56,7 +47,7 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
       yield AddContactProgressState();
       await userDataRepository.addContact(username);
       yield AddContactSuccessState();
-      //dispatch(FetchContactsEvent());
+//      dispatch(FetchContactsEvent());
     } on MessioException catch(exception){
       print(exception.errorMessage());
       yield AddContactFailedState(exception);

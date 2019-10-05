@@ -192,8 +192,7 @@ class _ContactListPageState extends State<ContactListPage> with TickerProviderSt
                                           elevation: 0.0,
                                           child: getButtonChild(state),
                                           onPressed: () {
-                                            contactsBloc.dispatch(AddContactEvent(
-                                                username: usernameController.text));
+                                            contactsBloc.dispatch(AddContactEvent(username: usernameController.text));
                                           },
                                         );
                                       }),

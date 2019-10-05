@@ -2,13 +2,12 @@ import 'dart:async';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:messio/blocs/authentication/bloc.dart';
 import 'package:messio/blocs/authentication/repository/AuthenticationRepository.dart';
 import 'package:messio/blocs/authentication/repository/StorageRepository.dart';
 import 'package:messio/blocs/authentication/repository/UserDataRepository.dart';
-import './bloc.dart';
-import 'Paths.dart';
+import 'package:messio/config/Paths.dart';
 import 'model/user.dart';
-
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
 
@@ -57,7 +56,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
         if (isSignedIn) {
           final firebaseUser = await authenticationRepository.getCurrentUser();
           bool isProfileComplete =
-          await userDataRepository.isProfileComplete(firebaseUser.uid); // if he is signed in then check if his profile is complete
+          await userDataRepository.isProfileComplete(); // if he is signed in then check if his profile is complete
           print(isProfileComplete);
           if (isProfileComplete) {      //if profile is complete then redirect to the home page
             yield ProfileUpdated();
@@ -80,7 +79,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
         FirebaseUser firebaseUser =
         await authenticationRepository.signInWithGoogle(); // show the google auth prompt and wait for user selection, retrieve the selected account
         bool isProfileComplete =
-        await userDataRepository.isProfileComplete(firebaseUser.uid); // check if the user's profile is complete
+        await userDataRepository.isProfileComplete(); // check if the user's profile is complete
         print(isProfileComplete);
         if (isProfileComplete) {
           yield ProfileUpdated(); //if profile is complete go to home page
@@ -108,8 +107,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       String profilePictureUrl = await storageRepository.uploadImage(
           profileImage, Paths.profilePicturePath); // upload image to firebase storage
       FirebaseUser user = await authenticationRepository.getCurrentUser(); // retrieve user from firebase
-      await userDataRepository.saveProfileDetails(
-          user.uid, profilePictureUrl, age, username); // save profile details to firestore
+      await userDataRepository.saveProfileDetails(profilePictureUrl, age, username); // save profile details to firestore
       yield ProfileUpdated(); //redirect to home page
     }
 
