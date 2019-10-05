@@ -1,7 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:messio/Utils/SharedObjects.dart';
 import 'package:messio/blocs/authentication/provider/AuthenticationProvider.dart';
 import 'package:mockito/mockito.dart';
 import '../mock/FirebaseMock.dart';
+import '../mock/SharedPreferencesMock.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -10,6 +12,8 @@ void main() {
     //Mock and inject the basic dependencies in the AuthenticationProvider
     FirebaseAuthMock firebaseAuth = FirebaseAuthMock();
     GoogleSignInMock googleSignIn = GoogleSignInMock();
+    SharedPreferencesMock sharedPreferencesMock = SharedPreferencesMock();
+    SharedObjects.prefs = sharedPreferencesMock;
 
     AuthenticationProvider authenticationProvider = AuthenticationProvider(
         firebaseAuth: firebaseAuth, googleSignIn: googleSignIn);
@@ -21,6 +25,7 @@ void main() {
 
     test('signInWithGoogle returns a Firebase user', () async {
       //mock the method calls
+      when(sharedPreferencesMock.get(any)).thenReturn('uid');
       when(googleSignIn.signIn()).thenAnswer(
               (_) => Future<GoogleSignInAccountMock>.value(googleSignInAccount));
       when(googleSignInAccount.authentication).thenAnswer((_) =>

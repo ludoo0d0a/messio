@@ -3,6 +3,7 @@ import 'package:messio/blocs/authentication/provider/StorageProvider.dart';
 import 'package:mockito/mockito.dart';
 
 import '../mock/FirebaseMock.dart';
+import '../mock/IOMock.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
