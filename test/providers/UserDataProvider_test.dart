@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:messio/utils/SharedObjects.dart';
 import 'package:messio/blocs/authentication/model/user.dart';
 import 'package:messio/providers/UserDataProvider.dart';
-import 'package:messio/utils/SharedObjects.dart';
 import 'package:mockito/mockito.dart';
 
 import '../mock/FirebaseMock.dart';
@@ -70,11 +70,7 @@ void main() {
       documentReference = DocumentReferenceMock(); //create a user
       when(fireStore.collection(any)).thenReturn(collectionReference);
       when(collectionReference.document(any)).thenReturn(documentReference);
-      var prefs = SharedObjects.prefs;
-      prefs.setInt("v", 1);
       expect(await documentReference.snapshots().isEmpty, true);
-      var prefs2 = SharedObjects.prefs;
-      prefs2.setInt("v", 1);
       User user = await userDataProvider.saveProfileDetails('http://www.github.com', 18, 'johndoe');
       expect(await documentReference.snapshots().isEmpty, false);
       expect(user.age, 18); // checking if passed data is saved
