@@ -86,6 +86,8 @@ class UserDataProvider extends BaseUserDataProvider {
           List<Contact> contactList = List();
           for (String username in contacts) {
             print(username);
+
+            // Hacky to enter not already registered users
             contactList.add(Contact(uid, username, username));
 //            String uid = await getUidByUsername(username);
 //            DocumentSnapshot contactSnapshot = await userRef.document(uid).get();

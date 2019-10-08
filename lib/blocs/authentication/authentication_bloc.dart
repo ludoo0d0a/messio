@@ -76,10 +76,8 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     Stream<AuthenticationState> mapClickedGoogleLoginToState() async* {
       yield AuthInProgress();  //show progress bar
       try {
-        FirebaseUser firebaseUser =
-        await authenticationRepository.signInWithGoogle(); // show the google auth prompt and wait for user selection, retrieve the selected account
-        bool isProfileComplete =
-        await userDataRepository.isProfileComplete(); // check if the user's profile is complete
+        FirebaseUser firebaseUser = await authenticationRepository.signInWithGoogle(); // show the google auth prompt and wait for user selection, retrieve the selected account
+        bool isProfileComplete = await userDataRepository.isProfileComplete(); // check if the user's profile is complete
         print(isProfileComplete);
         if (isProfileComplete) {
           yield ProfileUpdated(); //if profile is complete go to home page

@@ -9,7 +9,7 @@ import 'package:messio/repositories/StorageRepository.dart';
 import 'package:messio/repositories/UserDataRepository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Utils/SharedObjects.dart';
+import 'utils/SharedObjects.dart';
 import 'blocs/authentication/authentication_bloc.dart';
 import 'blocs/authentication/authentication_state.dart';
 import 'blocs/contacts/bloc.dart';

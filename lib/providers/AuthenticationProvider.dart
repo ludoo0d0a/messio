@@ -2,7 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:messio/config/Constants.dart';
-import 'package:messio/Utils/SharedObjects.dart';
+import 'package:messio/utils/SharedObjects.dart';
 
 class AuthenticationProvider extends BaseAuthenticationProvider {
   final FirebaseAuth firebaseAuth;
@@ -20,7 +20,6 @@ class AuthenticationProvider extends BaseAuthenticationProvider {
         idToken: authentication.idToken,
         accessToken: authentication.accessToken);
     await firebaseAuth.signInWithCredential( credential); //sign in to firebase using the generated credentials
-//    return firebaseAuth.currentUser(); //return the firebase user created
     FirebaseUser firebaseUser = await firebaseAuth.currentUser(); //return the firebase user created
     SharedObjects.prefs.setString(Constants.sessionUid, firebaseUser.uid);
     return firebaseUser;

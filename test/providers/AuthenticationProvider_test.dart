@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:messio/Utils/SharedObjects.dart';
+import 'package:messio/utils/SharedObjects.dart';
 import 'package:messio/providers/AuthenticationProvider.dart';
 import 'package:mockito/mockito.dart';
 import '../mock/FirebaseMock.dart';
