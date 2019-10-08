@@ -44,6 +44,8 @@ class _ChatAppBarState extends State<ChatAppBar> {
   }
 
   void initApp() async{
+    // Add auth bloc, but tests failed...
+
     authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
 //    authenticationBloc.state.listen((state) {
 //      if (state is Authenticated) {
@@ -184,19 +186,25 @@ class _ChatAppBarState extends State<ChatAppBar> {
                           child: Container(
                             child: Column(
                               children: <Widget>[
-                                Center(
-                                  child: IconButton(
-                                    icon: CircleAvatar(
-                                        radius: 30,
-                                        backgroundImage: profileImage
+                                Expanded(
+                                  flex: 5,
+                                  child: Center(
+                                    child: IconButton(
+                                      icon: CircleAvatar(
+                                          radius: 30,
+                                          backgroundImage: profileImage
+                                      ),
+                                      onPressed: () => navigateToHome(),
                                     ),
-                                    onPressed: () => navigateToHome(),
                                   ),
                                 ),
-                                Center(
-                                  child: FlatButton(
-                                    child: Text('Logout'),
-                                    onPressed: () => logout(),
+                                Expanded(
+                                  flex: 2,
+                                  child: Center(
+                                    child: FlatButton(
+                                      child: Text('Logout'),
+                                      onPressed: () => logout(),
+                                    ),
                                   ),
                                 ),
                               ],
