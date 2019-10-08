@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:messio/blocs/authentication/provider/AuthenticationProvider.dart';
+import 'package:messio/providers/AuthenticationProvider.dart';
 
 class AuthenticationRepository {
   BaseAuthenticationProvider authenticationProvider = AuthenticationProvider();

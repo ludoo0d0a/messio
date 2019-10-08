@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:messio/blocs/authentication/model/user.dart';
-import 'package:messio/blocs/authentication/provider/UserDataProvider.dart';
 import 'package:messio/blocs/contacts/model/contact.dart';
+import 'package:messio/providers/UserDataProvider.dart';
 
 class UserDataRepository {
   BaseUserDataProvider userDataProvider = UserDataProvider();

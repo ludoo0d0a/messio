@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:messio/blocs/authentication/repository/UserDataRepository.dart';
 import 'package:messio/blocs/contacts/bloc.dart';
-import 'package:messio/MessioException.dart';
+import 'package:messio/Utils/MessioException.dart';
+import 'package:messio/repositories/UserDataRepository.dart';
 
 class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
   UserDataRepository userDataRepository;

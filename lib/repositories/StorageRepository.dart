@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:messio/blocs/authentication/provider/StorageProvider.dart';
+import 'package:messio/providers/StorageProvider.dart';
 
 class StorageRepository{
   StorageProvider storageProvider = StorageProvider();

@@ -4,14 +4,14 @@ import 'package:messio/blocs/authentication/authentication_event.dart';
 import 'package:messio/pages/ConversationPageSlide.dart';
 //import 'package:messio/pages/ConversationPageSlide.dart';
 import 'package:messio/pages/RegisterPage.dart';
+import 'package:messio/repositories/AuthenticationRepository.dart';
+import 'package:messio/repositories/StorageRepository.dart';
+import 'package:messio/repositories/UserDataRepository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Utils/SharedObjects.dart';
 import 'blocs/authentication/authentication_bloc.dart';
 import 'blocs/authentication/authentication_state.dart';
-import 'blocs/authentication/repository/AuthenticationRepository.dart';
-import 'blocs/authentication/repository/StorageRepository.dart';
-import 'blocs/authentication/repository/UserDataRepository.dart';
 import 'blocs/contacts/bloc.dart';
 import 'config/Palette.dart';
 
@@ -36,7 +36,6 @@ Future<void> main() async {
                   storageRepository: storageRepository
               )
                 ..dispatch(AppLaunched()),
-              child: MessioApp(),
             ),
             BlocProvider<ContactsBloc>(
               builder: (context) => ContactsBloc(

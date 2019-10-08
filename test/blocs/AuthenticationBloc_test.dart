@@ -4,7 +4,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:messio/blocs/authentication/bloc.dart';
 import 'package:messio/blocs/authentication/model/user.dart';
-import 'package:messio/blocs/authentication/repository/AuthenticationRepository.dart';
 import 'package:mockito/mockito.dart';
 
 import '../mock/FirebaseMock.dart';

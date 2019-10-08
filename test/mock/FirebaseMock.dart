@@ -61,6 +61,7 @@ class StorageTaskSnapshotMock extends Mock implements StorageTaskSnapshot{}
 UserDataProvider Mocks
  */
 class FireStoreMock extends Mock implements Firestore{}
+
 class DocumentReferenceMock extends Mock implements DocumentReference{
   DocumentSnapshotMock documentSnapshotMock;
 

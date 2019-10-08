@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:messio/blocs/authentication/bloc.dart';
-import 'package:messio/blocs/authentication/repository/AuthenticationRepository.dart';
-import 'package:messio/blocs/authentication/repository/StorageRepository.dart';
-import 'package:messio/blocs/authentication/repository/UserDataRepository.dart';
 import 'package:messio/config/Paths.dart';
+import 'package:messio/repositories/AuthenticationRepository.dart';
+import 'package:messio/repositories/StorageRepository.dart';
+import 'package:messio/repositories/UserDataRepository.dart';
 import 'model/user.dart';
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {

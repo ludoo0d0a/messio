@@ -3,8 +3,8 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:messio/Constants.dart';
-import 'package:messio/MessioException.dart';
+import 'package:messio/config/Constants.dart';
+import 'package:messio/Utils/MessioException.dart';
 import 'package:messio/Utils/SharedObjects.dart';
 import 'package:messio/blocs/authentication/model/user.dart';
 import 'package:messio/blocs/contacts/model/contact.dart';
@@ -45,18 +45,16 @@ class UserDataProvider extends BaseUserDataProvider {
     //map the uid to the username
     mapReference.setData(mapData);
 
-    DocumentReference ref = fireStoreDb.collection(Paths.usersPath).document(
-        uid); //reference of the user's document node in database/users. This node is created using uid
+    //reference of the user's document node in database/users. This node is created using uid
+    DocumentReference ref = fireStoreDb.collection(Paths.usersPath).document(uid);
     var data = {
       'photoUrl': profileImageUrl,
       'age': age,
       'username': username,
     };
     ref.setData(data, merge: true); // set the photourl, age and username
-    final DocumentSnapshot currentDocument =
-    await ref.get(); // get updated data back from firestore
-    return User.fromFirestore(
-        currentDocument); // create a user object and return it
+    final DocumentSnapshot currentDocument = await ref.get(); // get updated data back from firestore
+    return User.fromFirestore(currentDocument); // create a user object and return it
   }
 
   @override

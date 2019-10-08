@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../../MessioException.dart';
+import '../../Utils/MessioException.dart';
 import 'model/contact.dart';
 
 @immutable
