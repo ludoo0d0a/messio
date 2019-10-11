@@ -5,10 +5,12 @@ import 'package:messio/pages/ConversationPageSlide.dart';
 //import 'package:messio/pages/ConversationPageSlide.dart';
 import 'package:messio/pages/RegisterPage.dart';
 import 'package:messio/repositories/AuthenticationRepository.dart';
+import 'package:messio/repositories/ChatRepository.dart';
 import 'package:messio/repositories/StorageRepository.dart';
 import 'package:messio/repositories/UserDataRepository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'blocs/chats/chat_bloc.dart';
 import 'utils/SharedObjects.dart';
 import 'blocs/authentication/authentication_bloc.dart';
 import 'blocs/authentication/authentication_state.dart';
@@ -23,6 +25,7 @@ Future<void> main() async {
   final AuthenticationRepository authRepository = AuthenticationRepository();
   final UserDataRepository userDataRepository = UserDataRepository();
   final StorageRepository storageRepository = StorageRepository();
+  final ChatRepository chatRepository = ChatRepository();
 
   SharedObjects.prefs = await SharedPreferences.getInstance();
 
@@ -40,6 +43,13 @@ Future<void> main() async {
             BlocProvider<ContactsBloc>(
               builder: (context) => ContactsBloc(
                 userDataRepository: userDataRepository,
+              ),
+            ),
+            BlocProvider<ChatBloc>(
+              builder: (context) => ChatBloc(
+                  userDataRepository: userDataRepository,
+                  storageRepository:  storageRepository,
+                  chatRepository: chatRepository
               ),
             )
           ],

@@ -7,10 +7,13 @@ import 'package:messio/config/Assets.dart';
 import 'package:messio/config/Decorations.dart';
 import 'package:messio/config/Palette.dart';
 import 'package:messio/config/Styles.dart';
+import 'package:messio/config/Transitions.dart';
 import 'package:messio/widgets/BottomSheetFixed.dart';
 import 'package:messio/widgets/ContactRowWidget.dart';
 import 'package:messio/widgets/GradientFab.dart';
 import 'package:messio/widgets/QuickScrollbar.dart';
+
+import 'ConversationPageSlide.dart';
 
 class ContactListPage extends StatefulWidget {
   static const String routeName = "/contactList";
@@ -77,6 +80,8 @@ class _ContactListPageState extends State<ContactListPage> with TickerProviderSt
                       behavior: SnackBarBehavior.floating,
                       content: Text(state.exception.errorMessage()));
                   Scaffold.of(bc).showSnackBar(snackBar);
+                } else if (state is ClickedContactState){
+                    Navigator.push(context,SlideLeftRoute(page: ConversationPageSlide(startContact: state.contact)));
                 }
               },
               child: Stack(

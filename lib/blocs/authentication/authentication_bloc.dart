@@ -102,8 +102,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     Stream<AuthenticationState> mapSaveProfileToState(
         File profileImage, int age, String username) async* {
       yield ProfileUpdateInProgress(); // shows progress bar
-      String profilePictureUrl = await storageRepository.uploadImage(
-          profileImage, Paths.profilePicturePath); // upload image to firebase storage
+      String profilePictureUrl = await storageRepository.uploadFile( profileImage, Paths.profilePicturePath); // upload image to firebase storage
       FirebaseUser user = await authenticationRepository.getCurrentUser(); // retrieve user from firebase
       await userDataRepository.saveProfileDetails(profilePictureUrl, age, username); // save profile details to firestore
       yield ProfileUpdated(); //redirect to home page
