@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:messio/blocs/authentication/model/user.dart';
 import 'package:messio/blocs/chats/bloc.dart';
 import 'package:messio/config/Constants.dart';
 import 'package:messio/config/Paths.dart';
@@ -15,7 +16,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final ChatRepository chatRepository;
   final UserDataRepository userDataRepository;
   final StorageRepository storageRepository;
-  StreamSubscription subscription;
+  StreamSubscription messagesSubscription;
+  StreamSubscription chatsSubscription;
+  String activeChatId;
 
   ChatBloc(
       {this.chatRepository, this.userDataRepository, this.storageRepository})
@@ -31,6 +34,24 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     ChatEvent event,
   ) async* {
     print(event);
+
+
+    if (event is FetchChatListEvent) {
+      yield* mapFetchChatListEventToState(event);
+    }
+    if (event is ReceivedChatsEvent) {
+      yield FetchedChatListState(event.chatList);
+    }
+    if (event is PageChangedEvent) {
+      activeChatId = event.activeChat.chatId;
+    }
+    if (event is FetchConversationDetailsEvent) {
+      dispatch(FetchMessagesEvent(event.chat));
+      yield* mapFetchConversationDetailsEventToState(event);
+    }
+
+
+
     if (event is FetchMessagesEvent) {
       mapFetchMessagesEventToState(event);
     }
@@ -49,9 +70,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   Stream<ChatState> mapFetchMessagesEventToState(FetchMessagesEvent event) async* {
     try {
       yield InitialChatState();
-      subscription?.cancel();
-      subscription = chatRepository
-          .getMessages(event.chatId)
+      String chatId = await chatRepository.getChatIdByUsername(event.chat.username);
+      messagesSubscription?.cancel();
+      messagesSubscription = chatRepository
+          .getMessages(chatId)
           .listen((messages) => dispatch(ReceivedMessagesEvent(messages)));
     } on MessioException catch (exception) {
       print(exception.errorMessage());
@@ -69,9 +91,31 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     await chatRepository.sendMessage(event.chatId, message);
   }
 
+
+  Stream<ChatState> mapFetchChatListEventToState(
+      FetchChatListEvent event) async* {
+    try {
+      chatsSubscription?.cancel();
+      chatsSubscription = chatRepository
+          .getChats()
+          .listen((chats) => dispatch(ReceivedChatsEvent(chats)));
+    } on MessioException catch (exception) {
+      print(exception.errorMessage());
+      yield ErrorState(exception);
+    }
+  }
+
+  Stream<ChatState> mapFetchConversationDetailsEventToState(
+      FetchConversationDetailsEvent event) async* {
+    User user = await userDataRepository.getUser(event.chat.username);
+    print(user);
+    yield FetchedContactDetailsState(user);
+  }
+
   @override
   void dispose() {
-    subscription.cancel();
+    messagesSubscription.cancel();
+    chatsSubscription.cancel();
     super.dispose();
   }
 }

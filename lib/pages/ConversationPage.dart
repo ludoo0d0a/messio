@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:messio/blocs/chats/bloc.dart';
+import 'package:messio/blocs/chats/model/Chat.dart';
 import 'package:messio/config/Palette.dart';
 
 import 'package:messio/widgets/ChatAppBar.dart';
 import 'package:messio/widgets/ChatListWidget.dart';
 
 class ConversationPage extends StatefulWidget {
-//  ConversationPage({Key key}) : super(key: key);
-
-  const ConversationPage();
+  final Chat chat;
 
   @override
-  _ConversationPageState createState() => _ConversationPageState();
+  _ConversationPageState createState() => _ConversationPageState(chat);
 
+  const ConversationPage(this.chat);
 }
 
+
 class _ConversationPageState extends State<ConversationPage> {
+  final Chat chat;
+
+  _ConversationPageState(this.chat);
+
+  ChatBloc chatBloc;
 
   // dont forget key: _scaffoldKey, in Scaffold
 //  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();

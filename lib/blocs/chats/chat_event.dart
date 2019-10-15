@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart';
+import 'model/Chat.dart';
 import 'model/Message.dart';
 
 abstract class ChatEvent extends Equatable {
@@ -9,9 +10,9 @@ abstract class ChatEvent extends Equatable {
 
 // FetchMessagesEvent (triggered when chat opens),
 class FetchMessagesEvent extends ChatEvent {
-  final String chatId;
+  final Chat chat;
 
-  FetchMessagesEvent(this.chatId): super([chatId]);
+  FetchMessagesEvent(this.chat): super([chat]);
 
   @override
   String toString() => 'FetchMessagesEvent';
@@ -44,4 +45,59 @@ class PickedAttachmentEvent extends ChatEvent {
 
   @override
   String toString() => 'PickedAttachmentEvent';
+}
+
+
+
+
+
+
+
+//triggered to fetch list of chats
+class FetchChatListEvent extends ChatEvent {
+  @override
+  String toString() => 'FetchChatListEvent';
+}
+
+//triggered when stream containing list of chats has new data
+class ReceivedChatsEvent extends ChatEvent {
+  final List<Chat> chatList;
+
+  ReceivedChatsEvent(this.chatList);
+
+  @override
+  String toString() => 'ReceivedChatsEvent';
+}
+
+//triggered to get details of currently open conversation
+class FetchConversationDetailsEvent extends ChatEvent {
+  final Chat chat;
+
+  FetchConversationDetailsEvent(this.chat) : super([chat]);
+
+  @override
+  String toString() => 'FetchConversationDetailsEvent';
+}
+
+//triggered to send attachment
+class SendAttachmentEvent extends ChatEvent {
+  final String chatId;
+  final File file;
+  final FileType fileType;
+
+  SendAttachmentEvent(this.chatId, this.file, this.fileType)
+      : super([chatId, file, fileType]);
+
+  @override
+  String toString() => 'SendAttachmentEvent';
+}
+
+//triggered on page change
+class PageChangedEvent extends ChatEvent {
+  final int index;
+  final Chat activeChat;
+  PageChangedEvent(this.index, this.activeChat) : super([index, activeChat]);
+
+  @override
+  String toString() => 'PageChangedEvent';
 }

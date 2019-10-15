@@ -23,4 +23,6 @@ class ChatRepository {
   Stream<List<Message>> getMessages(String chatId) => chatProvider.getMessages(chatId);
 
   Future<void> sendMessage(String chatId, Message message) => chatProvider.sendMessage(chatId, message);
+
+  Future<String> getChatIdByUsername(String username) => chatProvider.getChatIdByUsername(username);
 }
