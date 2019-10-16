@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:messio/blocs/chats/bloc.dart';
 
 import '../config/Palette.dart';
 
@@ -7,6 +9,11 @@ class InputWidget extends StatelessWidget {
   static final TextEditingController textEditingController = TextEditingController();
 
   const InputWidget();
+
+  void sendMessage(context){
+    BlocProvider.of<ChatBloc>(context).dispatch(SendTextMessageEvent(textEditingController.text));
+    textEditingController.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +34,15 @@ class InputWidget extends StatelessWidget {
 
           // Text input
           Flexible(
-            child: Container(
-              child: TextField(
-                style: TextStyle(color: Palette.primaryTextColor, fontSize: 15.0),
-                controller: textEditingController,
-                decoration: InputDecoration.collapsed(
-                  hintText: 'Type a message',
-                  hintStyle: TextStyle(color: Palette.greyColor),
+            child: Material(
+              child: Container(
+                child: TextField(
+                  style: TextStyle(color: Palette.primaryTextColor, fontSize: 15.0),
+                  controller: textEditingController,
+                  decoration: InputDecoration.collapsed(
+                    hintText: 'Type a message',
+                    hintStyle: TextStyle(color: Palette.greyColor),
+                  ),
                 ),
               ),
             ),
@@ -45,8 +54,8 @@ class InputWidget extends StatelessWidget {
               margin: new EdgeInsets.symmetric(horizontal: 8.0),
               child: new IconButton(
                 icon: new Icon(Icons.send),
-                onPressed: () => {},
-                color: Palette.primaryColor,
+                onPressed: () => sendMessage(context),
+                color: Palette.accentColor,
               ),
             ),
             color: Colors.white,

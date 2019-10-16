@@ -39,7 +39,7 @@ class UserDataProvider extends BaseUserDataProvider {
 
   @override
   Future<User> saveProfileDetails(String profileImageUrl, int age, String username) async {
-    String uid = SharedObjects.prefs.get(Constants.sessionUid);
+    String uid = SharedObjects.prefs.getString(Constants.sessionUid);
     //get a reference to the map
     DocumentReference mapReference = fireStoreDb.collection(Paths.usernameUidMapPath).document(username);
     var mapData = {'uid': uid};
@@ -61,7 +61,7 @@ class UserDataProvider extends BaseUserDataProvider {
 
   @override
   Future<bool> isProfileComplete() async {
-    String uid = SharedObjects.prefs.get(Constants.sessionUid);
+    String uid = SharedObjects.prefs.getString(Constants.sessionUid);
     DocumentReference ref = fireStoreDb.collection(Paths.usersPath).document(uid);  // get reference to the user/ uid node
     final DocumentSnapshot currentDocument = await ref.get();
     final bool isProfileComplete = (currentDocument != null &&
@@ -77,7 +77,7 @@ class UserDataProvider extends BaseUserDataProvider {
 
   @override
   Stream<List<Contact>> getContacts() {
-    String uid = SharedObjects.prefs.get(Constants.sessionUid);
+    String uid = SharedObjects.prefs.getString(Constants.sessionUid);
     CollectionReference userRef = fireStoreDb.collection(Paths.usersPath);
     DocumentReference ref = userRef.document(uid); //reference of the user's document node in database/users. This node is created using uid
     return ref.snapshots().transform(
@@ -94,20 +94,37 @@ class UserDataProvider extends BaseUserDataProvider {
 
   @override
   Future<void> addContact(String username) async {
-    //Check user already exist
-    await getUser(username);
-    String uid = SharedObjects.prefs.get(Constants.sessionUid);
-    DocumentReference ref = fireStoreDb.collection(Paths.usersPath).document(uid); //reference of the user's document node in database/users. This node is created using uid
-    final DocumentSnapshot currentDocument = await ref.get();
-    print(currentDocument.data);
-    List<String> contacts = currentDocument.data['contacts'] != null
-        ? List.from(currentDocument.data['contacts'])
+    User contactUser = await getUser(username);
+    //create a node with the username provided in the contacts collection
+    CollectionReference collectionReference =
+    fireStoreDb.collection(Paths.usersPath);
+    DocumentReference ref = collectionReference
+        .document(SharedObjects.prefs.getString(Constants.sessionUid));
+
+
+    //await to fetch user details of the username provided and set data
+    final documentSnapshot = await ref.get();
+    List<String> contacts = documentSnapshot.data['contacts'] != null
+        ? List.from(documentSnapshot.data['contacts'])
         : List();
     if (contacts.contains(username)) {
       throw ContactAlreadyExistsException();
     }
+    //add contact
     contacts.add(username);
-    ref.updateData({'contacts': contacts});
+    await ref.setData({'contacts': contacts}, merge: true);
+    //contact should be added in the contactlist of both the users. Adding to the second user here
+    String sessionUsername = SharedObjects.prefs.getString(Constants.sessionUsername);
+    DocumentReference contactRef = collectionReference.document(contactUser.documentId);
+    final  contactSnapshot = await contactRef.get();
+    contacts = contactSnapshot.data['contacts'] != null
+        ? List.from(contactSnapshot.data['contacts'])
+        : List();
+    if (contacts.contains(sessionUsername)) {
+      throw ContactAlreadyExistsException();
+    }
+    contacts.add(sessionUsername);
+    await contactRef.setData({'contacts': contacts}, merge: true);
   }
 
   @override
@@ -165,8 +182,8 @@ abstract class  BaseUserDataProvider {
     Future<User> saveDetailsFromGoogleAuth(FirebaseUser user);
     Future<User> saveProfileDetails(String profileImageUrl, int age, String username);
     Future<bool> isProfileComplete();
-    Stream<List<Contact>> getContacts() {}
-    Future<void> addContact(String username) {}
-    Future<User> getUser(String username) {}
+    Stream<List<Contact>> getContacts();
+    Future<void> addContact(String username);
+    Future<User> getUser(String username);
     Future<String> getUidByUsername(String username);
 }

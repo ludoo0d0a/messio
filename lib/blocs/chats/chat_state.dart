@@ -16,7 +16,9 @@ class InitialChatState extends ChatState {
 }
 
 class FetchedMessagesState extends ChatState {
-  FetchedMessagesState(List<Message> messages);
+  List<Message> messages;
+
+  FetchedMessagesState(List<Message> messages) : super([messages]);
 
   @override
   String toString() => 'FetchedMessagesState';

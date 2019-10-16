@@ -100,8 +100,9 @@ class ChatProvider extends BaseChatProvider{
       },merge: true);
     }
   }
-  Future<String> createChatIdForUsers(
-      String selfUsername, String contactUsername) async {
+
+  @override
+  Future<String> createChatIdForUsers(String selfUsername, String contactUsername) async {
     CollectionReference collectionReference =
     fireStoreDb.collection(Paths.chatsPath);
     DocumentReference documentReference = await collectionReference.add({
@@ -119,6 +120,8 @@ class ChatProvider extends BaseChatProvider{
       sink.add(chats);
     }
   }
+
+
 
 }
 

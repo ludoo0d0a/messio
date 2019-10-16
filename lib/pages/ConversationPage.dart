@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:messio/blocs/chats/bloc.dart';
 import 'package:messio/blocs/chats/model/Chat.dart';
 import 'package:messio/config/Palette.dart';
@@ -22,6 +23,14 @@ class _ConversationPageState extends State<ConversationPage> {
   _ConversationPageState(this.chat);
 
   ChatBloc chatBloc;
+
+  @override
+  void initState() {
+    chatBloc = BlocProvider.of<ChatBloc>(context);
+    chatBloc.dispatch(FetchConversationDetailsEvent(chat));
+    super.initState();
+  }
+
 
   // dont forget key: _scaffoldKey, in Scaffold
 //  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();

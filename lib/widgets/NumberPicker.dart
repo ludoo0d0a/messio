@@ -231,7 +231,7 @@ class NumberPicker extends StatelessWidget {
     if (decimalPlaces == 0) {
       return _integerListView(themeData);
     } else {
-      return new Row(
+      return Row(
         children: <Widget>[
           _integerListView(themeData),
           _decimalListView(themeData),
@@ -255,13 +255,13 @@ class NumberPicker extends StatelessWidget {
           animateInt(selectedIntValue);
         }
       },
-      child: new NotificationListener(
-        child: new Container(
+      child: NotificationListener(
+        child: Container(
           height: listViewHeight,
           width: listViewWidth,
           child: Stack(
             children: <Widget>[
-              new ListView.builder(
+              ListView.builder(
                 scrollDirection: scrollDirection,
                 controller: intScrollController,
                 itemExtent: itemExtent,
@@ -279,9 +279,9 @@ class NumberPicker extends StatelessWidget {
                   bool isExtra = index == 0 || index == listItemCount - 1;
 
                   return isExtra
-                      ? new Container() //empty first and last element
-                      : new Center(
-                    child: new Text(
+                      ? Container() //empty first and last element
+                      : Center(
+                    child: Text(
                       getDisplayedValue(value),
                       style: itemStyle,
                     ),
@@ -316,13 +316,13 @@ class NumberPicker extends StatelessWidget {
           animateDecimal(selectedDecimalValue);
         }
       },
-      child: new NotificationListener(
-        child: new Container(
+      child: NotificationListener(
+        child: Container(
           height: listViewHeight,
           width: listViewWidth,
           child: Stack(
             children: <Widget>[
-              new ListView.builder(
+              ListView.builder(
                 controller: decimalScrollController,
                 itemExtent: itemExtent,
                 itemCount: decimalItemCount,
@@ -338,9 +338,9 @@ class NumberPicker extends StatelessWidget {
                   bool isExtra = index == 0 || index == decimalItemCount - 1;
 
                   return isExtra
-                      ? new Container() //empty first and last element
-                      : new Center(
-                    child: new Text(
+                      ? Container() //empty first and last element
+                      : Center(
+                    child: Text(
                         value.toString().padLeft(decimalPlaces, '0'),
                         style: itemStyle),
                   );
@@ -371,8 +371,8 @@ class NumberPicker extends StatelessWidget {
           _animateIntWhenUserStoppedScrolling(selectedIntValue);
         }
       },
-      child: new NotificationListener(
-        child: new Container(
+      child: NotificationListener(
+        child: Container(
           height: listViewHeight,
           width: listViewWidth,
           child: Stack(
@@ -389,8 +389,8 @@ class NumberPicker extends StatelessWidget {
                       ? selectedStyle
                       : defaultStyle;
 
-                  return new Center(
-                    child: new Text(
+                  return Center(
+                    child: Text(
                       getDisplayedValue(value),
                       style: itemStyle,
                     ),

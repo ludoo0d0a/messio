@@ -13,9 +13,9 @@ class _ConversationPageListState extends State<ConversationPageList> {
   Widget build(BuildContext context) {
     return PageView(
       children: <Widget>[
-        ConversationPage(),
-        ConversationPage(),
-        ConversationPage()
+        ConversationPage(null),
+        ConversationPage(null),
+        ConversationPage(null)
       ],
     );
   }

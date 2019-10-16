@@ -1,12 +1,16 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:messio/blocs/authentication/model/user.dart';
 import 'package:messio/blocs/contacts/bloc.dart';
 import 'package:messio/Utils/MessioException.dart';
+import 'package:messio/repositories/ChatRepository.dart';
 import 'package:messio/repositories/UserDataRepository.dart';
 
 class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
   UserDataRepository userDataRepository;
   StreamSubscription subscription;
+
+  ChatRepository chatRepository;
   ContactsBloc({this.userDataRepository}) : assert(userDataRepository != null);
 
   ContactsState get initialState => new InitialContactsState();
@@ -46,6 +50,8 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
     try {
       yield AddContactProgressState();
       await userDataRepository.addContact(username);
+      User user = await userDataRepository.getUser(username);
+      await chatRepository.createChatIdForContact(user);
       yield AddContactSuccessState();
 //      dispatch(FetchContactsEvent());
     } on MessioException catch(exception){

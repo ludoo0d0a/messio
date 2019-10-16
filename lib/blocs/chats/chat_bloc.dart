@@ -60,7 +60,13 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       yield FetchedMessagesState(event.messages);
     }
     if (event is SendTextMessageEvent) {
-      await chatRepository.sendMessage(event.chatId, event.message);
+//      await chatRepository.sendMessage(event.chatId, event.message);
+      Message message = TextMessage(
+          event.message,
+          DateTime.now().millisecondsSinceEpoch,
+          SharedObjects.prefs.getString(Constants.sessionName),
+          SharedObjects.prefs.getString(Constants.sessionUsername));
+      await chatRepository.sendMessage(activeChatId, message);
     }
     if (event is PickedAttachmentEvent) {
       await mapPickedAttachmentEventToState(event);

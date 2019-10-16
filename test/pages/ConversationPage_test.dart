@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:messio/blocs/chats/model/Chat.dart';
+import 'package:messio/blocs/chats/model/Message.dart';
 import 'package:messio/pages/ConversationPage.dart';
 import 'package:messio/widgets/ChatAppBar.dart';
 import 'package:messio/widgets/ChatListWidget.dart';
@@ -7,9 +9,11 @@ import 'package:messio/widgets/ChatListWidget.dart';
 void main(){
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  const Chat chat = null;
+
   const MaterialApp app = MaterialApp(
     home: Scaffold(
-        body:  const ConversationPage()
+        body:  const ConversationPage(chat)
     ),
   );
 

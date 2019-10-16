@@ -28,13 +28,14 @@ class ReceivedMessagesEvent extends ChatEvent {
 }
 //SendTextMessageEvent (used to send a normal text message).
 class SendTextMessageEvent extends ChatEvent {
-  final String chatId;
-  final Message message;
-  SendTextMessageEvent(this.chatId, this.message): super([chatId, message]);
+  final String message;
+
+  SendTextMessageEvent(this.message) : super([message]);
 
   @override
   String toString() => 'SendTextMessageEvent';
- }
+}
+
 //PickedAttachmentEvent ( when the user has picked a attachment as a message).
 class PickedAttachmentEvent extends ChatEvent {
   final String chatId;
