@@ -1,9 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:messio/blocs/chats/bloc.dart';
+import 'package:messio/blocs/chats/Bloc.dart';
 import 'package:messio/blocs/chats/model/Chat.dart';
 import 'package:messio/config/Palette.dart';
-
 import 'package:messio/widgets/ChatAppBar.dart';
 import 'package:messio/widgets/ChatListWidget.dart';
 
@@ -16,8 +18,7 @@ class ConversationPage extends StatefulWidget {
   const ConversationPage(this.chat);
 }
 
-
-class _ConversationPageState extends State<ConversationPage> with AutomaticKeepAliveClientMixin {
+class _ConversationPageState extends State<ConversationPage> with AutomaticKeepAliveClientMixin{
   final Chat chat;
 
   _ConversationPageState(this.chat);
@@ -31,16 +32,12 @@ class _ConversationPageState extends State<ConversationPage> with AutomaticKeepA
     chatBloc = BlocProvider.of<ChatBloc>(context);
     chatBloc.dispatch(FetchConversationDetailsEvent(chat));
   }
-
-
-  // dont forget key: _scaffoldKey, in Scaffold
-//  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
     print('build of $chat');
-    return Column(
+    // return Container(child: Center(child: Text(chat.username),),);
+    return Stack(
       children: <Widget>[
         Container(
           margin: EdgeInsets.only(top: 100),
@@ -56,6 +53,6 @@ class _ConversationPageState extends State<ConversationPage> with AutomaticKeepA
   }
 
   @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => null;
+  bool get wantKeepAlive => true;
+
 }

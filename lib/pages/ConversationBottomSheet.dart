@@ -4,16 +4,16 @@ import 'package:messio/config/Palette.dart';
 import '../widgets/ChatRowWidget.dart';
 import '../widgets/NavigationPillWidget.dart';
 
-class ConversationBottomSheetWidget extends StatefulWidget {
-  ConversationBottomSheetWidget({Key key}) : super(key: key);
+class ConversationBottomSheet extends StatefulWidget {
+  ConversationBottomSheet({Key key}) : super(key: key);
 
   @override
-  _ConversationBottomSheetWidgetState createState() =>
-      _ConversationBottomSheetWidgetState();
+  _ConversationBottomSheetState createState() =>
+      _ConversationBottomSheetState();
 }
 
-class _ConversationBottomSheetWidgetState
-    extends State<ConversationBottomSheetWidget> {
+class _ConversationBottomSheetState
+    extends State<ConversationBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
