@@ -43,7 +43,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     }
     if (event is PageChangedEvent) {
       activeChatId = event.activeChat.chatId;
+      yield PageChangedState(event.index, event.activeChat);
     }
+
     if (event is FetchConversationDetailsEvent) {
       dispatch(FetchMessagesEvent(event.chat));
       yield* mapFetchConversationDetailsEventToState(event);
