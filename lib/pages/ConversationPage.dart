@@ -27,6 +27,7 @@ class _ConversationPageState extends State<ConversationPage> {
   @override
   void initState() {
     chatBloc = BlocProvider.of<ChatBloc>(context);
+    // TODO : this do not load at first state
     chatBloc.dispatch(FetchConversationDetailsEvent(chat));
     super.initState();
   }

@@ -21,6 +21,7 @@ class _ChatListWidgetState extends State<ChatListWidget> {
       builder: (context, state) {
         print('ChatListWidget state:'+state.toString());
         if(state is FetchedMessagesState){
+          // TODO : this do not pass here at first loading
           messages = state.messages;
           print("FetchedMessagesState:");
           print(state.messages);

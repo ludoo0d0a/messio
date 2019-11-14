@@ -6,6 +6,7 @@ abstract class Message {
   int timeStamp;
   String senderName;
   String senderUsername;
+  String documentId;
 
   bool isSelf;
 
@@ -29,6 +30,7 @@ abstract class Message {
     }
     message.isSelf = SharedObjects.prefs.getString(Constants.sessionUsername) ==
         message.senderUsername;
+    message.documentId = doc.documentID;
     return message;
   }
 

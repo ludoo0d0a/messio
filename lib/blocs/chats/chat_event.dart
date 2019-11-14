@@ -12,20 +12,32 @@ abstract class ChatEvent extends Equatable {
 class FetchMessagesEvent extends ChatEvent {
   final Chat chat;
 
-  FetchMessagesEvent(this.chat): super([chat]);
+  FetchMessagesEvent(this.chat) : super([chat]);
 
   @override
   String toString() => 'FetchMessagesEvent';
+}
 
- }
+//triggered to fetch messages of chat
+class FetchPreviousMessagesEvent extends ChatEvent {
+  final Chat chat;
+  final Message lastMessage;
+  FetchPreviousMessagesEvent(this.chat, this.lastMessage) : super([chat, lastMessage]);
+
+  @override
+  String toString() => 'FetchPreviousMessagesEvent';
+}
+
 //ReceivedMessagesEvent (triggered when messages stream has any updates to deliver)
 class ReceivedMessagesEvent extends ChatEvent {
   final List<Message> messages;
-  ReceivedMessagesEvent(this.messages): super([messages]);
+  final String username;
+  ReceivedMessagesEvent(this.messages, this.username) : super([messages, username]);
 
   @override
   String toString() => 'ReceivedMessagesEvent';
 }
+
 //SendTextMessageEvent (used to send a normal text message).
 class SendTextMessageEvent extends ChatEvent {
   final String message;
@@ -33,7 +45,7 @@ class SendTextMessageEvent extends ChatEvent {
   SendTextMessageEvent(this.message) : super([message]);
 
   @override
-  String toString() => 'SendTextMessageEvent';
+  String toString() => 'SendTextMessageEvent {message: $message}';
 }
 
 //PickedAttachmentEvent ( when the user has picked a attachment as a message).
@@ -42,17 +54,11 @@ class PickedAttachmentEvent extends ChatEvent {
   final File file;
   final FileType fileType;
 
-  PickedAttachmentEvent(this.chatId, this.file, this.fileType): super([chatId, file, fileType]);
+  PickedAttachmentEvent(this.chatId, this.file, this.fileType) : super([chatId, file, fileType]);
 
   @override
   String toString() => 'PickedAttachmentEvent';
 }
-
-
-
-
-
-
 
 //triggered to fetch list of chats
 class FetchChatListEvent extends ChatEvent {
@@ -86,8 +92,7 @@ class SendAttachmentEvent extends ChatEvent {
   final File file;
   final FileType fileType;
 
-  SendAttachmentEvent(this.chatId, this.file, this.fileType)
-      : super([chatId, file, fileType]);
+  SendAttachmentEvent(this.chatId, this.file, this.fileType) : super([chatId, file, fileType]);
 
   @override
   String toString() => 'SendAttachmentEvent';
@@ -100,5 +105,5 @@ class PageChangedEvent extends ChatEvent {
   PageChangedEvent(this.index, this.activeChat) : super([index, activeChat]);
 
   @override
-  String toString() => 'PageChangedEvent';
+  String toString() => 'PageChangedEvent {index: $index, activeChat: $activeChat}';
 }

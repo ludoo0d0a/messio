@@ -52,6 +52,27 @@ class ChatProvider extends BaseChatProvider{
     );
   }
 
+  /*
+  Here prevMessage contains the documentID of the last messages from the top on the chat screen.
+   */
+  @override
+  Future<List<Message>> getPreviousMessages(String chatId, Message prevMessage) async {
+    DocumentReference chatDocRef =
+    fireStoreDb.collection(Paths.chatsPath).document(chatId);
+    CollectionReference messagesCollection =
+    chatDocRef.collection(Paths.messagesPath);
+    DocumentSnapshot prevDocument;
+    prevDocument= await messagesCollection.document(prevMessage.documentId).get(); // gets a reference to the last message in the existing list
+    final querySnapshot = await messagesCollection
+        .startAfterDocument(prevDocument)  // Start reading documents after the specified document
+        .orderBy('timeStamp', descending: true) // order them by timestamp
+        .limit(20) // limit the read to 20 items
+        .getDocuments();
+    List<Message> messageList = List();
+    querySnapshot.documents.forEach((doc)=>messageList.add(Message.fromFireStore(doc)));
+    return messageList;
+  }
+
   mapDocumentToMessage(QuerySnapshot querySnapshot, EventSink<List<Message>> sink) {
     print(querySnapshot);
     List<Message> messages = List();
@@ -134,5 +155,6 @@ abstract class BaseChatProvider{
   Future<String> getChatIdByUsername(String username);
   Future<void> createChatIdForContact(User user);
   Future<String> createChatIdForUsers( String selfUsername, String contactUsername);
+  Future<List<Message>> getPreviousMessages(String chatId, Message prevMessage);
 
 }

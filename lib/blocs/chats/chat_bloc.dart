@@ -16,7 +16,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final ChatRepository chatRepository;
   final UserDataRepository userDataRepository;
   final StorageRepository storageRepository;
-  StreamSubscription messagesSubscription;
+  Map<String, StreamSubscription> messagesSubscriptionMap = Map();
+//  StreamSubscription messagesSubscription;
   StreamSubscription chatsSubscription;
   String activeChatId;
 
@@ -54,10 +55,14 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     if (event is FetchMessagesEvent) {
       yield* mapFetchMessagesEventToState(event);
     }
+    if (event is FetchPreviousMessagesEvent) {
+      yield* mapFetchPreviousMessagesEventToState(event);
+    }
     if (event is ReceivedMessagesEvent) {
+      // TODO : this do not pass here at first loading
       print("ReceivedMessagesEvent");
       print(event.messages);
-      yield FetchedMessagesState(event.messages);
+      yield FetchedMessagesState(event.messages, event.username, isPrevious: false);
     }
     if (event is SendTextMessageEvent) {
 //      await chatRepository.sendMessage(event.chatId, event.message);
@@ -73,15 +78,20 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     }
   }
 
-  Stream<ChatState> mapFetchMessagesEventToState(FetchMessagesEvent event) async* {
+  Stream<ChatState> mapFetchMessagesEventToState(
+      FetchMessagesEvent event) async* {
     try {
       yield InitialChatState();
-      String chatId = await chatRepository.getChatIdByUsername(event.chat.username);
-      print("FetchMessagesEvent chatId:"+chatId);
+      String chatId =
+      await chatRepository.getChatIdByUsername(event.chat.username);
+      //  print('mapFetchMessagesEventToState');
+      //  print('MessSubMap: $messagesSubscriptionMap');
+      StreamSubscription messagesSubscription = messagesSubscriptionMap[chatId];
       messagesSubscription?.cancel();
-      messagesSubscription = chatRepository
-          .getMessages(chatId)
-          .listen((messages) => dispatch(ReceivedMessagesEvent(messages)));
+      messagesSubscription = chatRepository.getMessages(chatId).listen(
+              (messages) =>
+              dispatch(ReceivedMessagesEvent(messages, event.chat.username)));
+      messagesSubscriptionMap[chatId] = messagesSubscription;
     } on MessioException catch (exception) {
       print(exception.errorMessage());
       yield ErrorState(exception);
@@ -112,17 +122,32 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     }
   }
 
+  Stream<ChatState> mapFetchPreviousMessagesEventToState(
+      FetchPreviousMessagesEvent event) async* {
+    try {
+      String chatId = await chatRepository.getChatIdByUsername(event.chat.username);
+      final messages =
+      await chatRepository.getPreviousMessages(chatId, event.lastMessage);
+      yield FetchedMessagesState(messages, event.chat.username,
+          isPrevious: true);
+    } on MessioException catch (exception) {
+      print(exception.errorMessage());
+      yield ErrorState(exception);
+    }
+  }
+
   Stream<ChatState> mapFetchConversationDetailsEventToState(
       FetchConversationDetailsEvent event) async* {
     User user = await userDataRepository.getUser(event.chat.username);
     print('FetchedContactDetailsState:'+user.toString());
-    yield FetchedContactDetailsState(user);
+    yield FetchedContactDetailsState(user, event.chat.username);
   }
 
   @override
   void dispose() {
-    messagesSubscription.cancel();
     chatsSubscription.cancel();
+//    messagesSubscription.cancel();
+    messagesSubscriptionMap.forEach((_, subscription) => subscription.cancel());
     super.dispose();
   }
 }

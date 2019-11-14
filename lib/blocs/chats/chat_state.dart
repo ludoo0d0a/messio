@@ -17,11 +17,12 @@ class InitialChatState extends ChatState {
 
 class FetchedMessagesState extends ChatState {
   final List<Message> messages;
-
-  FetchedMessagesState(this.messages) : super([messages]);
+  final String username;
+  final isPrevious;
+  FetchedMessagesState(this.messages,this.username, {this.isPrevious}) : super([messages,username,isPrevious]);
 
   @override
-  String toString() => 'FetchedMessagesState';
+  String toString() => 'FetchedMessagesState {messages: ${messages.length}, username: $username, isPrevious: $isPrevious}';
 }
 
 class ErrorState extends ChatState{
@@ -46,8 +47,9 @@ class FetchedChatListState extends ChatState {
 
 class FetchedContactDetailsState extends ChatState {
   final User user;
+  final String username;
 
-  FetchedContactDetailsState(this.user) : super([user]);
+  FetchedContactDetailsState(this.user, this.username) : super([user, username]);
 
   @override
   String toString() => 'FetchedContactDetailsState';
