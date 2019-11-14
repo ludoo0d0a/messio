@@ -19,7 +19,7 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
   Stream<ContactsState> mapEventToState(
     ContactsEvent event,
   ) async* {
-    print(event);
+    print('ContactBloc event : '+event.toString());
     if (event is FetchContactsEvent) {
       yield* mapFetchContactsEventToState();
     }

@@ -31,8 +31,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   Stream<AuthenticationState> mapEventToState(
     AuthenticationEvent event,
   ) async* {
-    // TODO: Add Logic
-    print(event);
+    print('AuthenticationBloc event : '+event.toString());
     if (event is AppLaunched) {
       yield* mapAppLaunchedToState();
     } else if (event is ClickedGoogleLogin) {

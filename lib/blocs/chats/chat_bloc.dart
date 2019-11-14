@@ -33,8 +33,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   Stream<ChatState> mapEventToState(
     ChatEvent event,
   ) async* {
-    print(event);
-
+    print('ChatBloc event : '+event.toString());
 
     if (event is FetchChatListEvent) {
       yield* mapFetchChatListEventToState(event);
@@ -76,6 +75,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     try {
       yield InitialChatState();
       String chatId = await chatRepository.getChatIdByUsername(event.chat.username);
+      print("FetchMessagesEvent chatId:"+chatId);
       messagesSubscription?.cancel();
       messagesSubscription = chatRepository
           .getMessages(chatId)
@@ -113,7 +113,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   Stream<ChatState> mapFetchConversationDetailsEventToState(
       FetchConversationDetailsEvent event) async* {
     User user = await userDataRepository.getUser(event.chat.username);
-    print(user);
+    print('FetchedContactDetailsState:'+user.toString());
     yield FetchedContactDetailsState(user);
   }
 

@@ -62,7 +62,7 @@ class _ContactListPageState extends State<ContactListPage> with TickerProviderSt
             child: BlocListener<ContactsBloc, ContactsState>(
               bloc: contactsBloc,
               listener: (bc, state) {
-                print(state);
+                print("BlocListener<ContactsBloc, ContactsState> state:" + state.toString());
                 if (state is AddContactSuccessState) {
                   Navigator.pop(context);
                   final snackBar = SnackBar(
