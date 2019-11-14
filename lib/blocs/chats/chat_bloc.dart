@@ -50,12 +50,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       yield* mapFetchConversationDetailsEventToState(event);
     }
 
-
-
     if (event is FetchMessagesEvent) {
-      mapFetchMessagesEventToState(event);
+      yield* mapFetchMessagesEventToState(event);
     }
     if (event is ReceivedMessagesEvent) {
+      print("ReceivedMessagesEvent");
       print(event.messages);
       yield FetchedMessagesState(event.messages);
     }

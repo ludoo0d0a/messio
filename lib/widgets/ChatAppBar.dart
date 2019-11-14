@@ -198,15 +198,15 @@ class _ChatAppBarState extends State<ChatAppBar> {
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Center(
-                                    child: FlatButton(
-                                      child: Text('Logout'),
-                                      onPressed: () => logout(),
-                                    ),
-                                  ),
-                                ),
+//                                Expanded(
+//                                  flex: 2,
+//                                  child: Center(
+//                                    child: FlatButton(
+//                                      child: Text('Logout'),
+//                                      onPressed: () => logout(),
+//                                    ),
+//                                  ),
+//                                ),
                               ],
                             )
                             ),

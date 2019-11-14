@@ -19,14 +19,16 @@ class _ChatListWidgetState extends State<ChatListWidget> {
   Widget build(BuildContext context) {
     return BlocBuilder<ChatBloc,ChatState>(
       builder: (context, state) {
+        print('ChatListWidget state:'+state.toString());
         if(state is FetchedMessagesState){
           messages = state.messages;
+          print("FetchedMessagesState:");
           print(state.messages);
         }
         return       ListView.builder(
           padding: EdgeInsets.all(10.0),
           itemBuilder: (context, index) => ChatItemWidget(messages[index]),
-          itemCount: 20,
+          itemCount: messages.length,
           reverse: true,
           controller: listScrollController,
 //          )
