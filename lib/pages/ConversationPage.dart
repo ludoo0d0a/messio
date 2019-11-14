@@ -17,7 +17,7 @@ class ConversationPage extends StatefulWidget {
 }
 
 
-class _ConversationPageState extends State<ConversationPage> {
+class _ConversationPageState extends State<ConversationPage> with AutomaticKeepAliveClientMixin {
   final Chat chat;
 
   _ConversationPageState(this.chat);
@@ -26,10 +26,10 @@ class _ConversationPageState extends State<ConversationPage> {
 
   @override
   void initState() {
-    chatBloc = BlocProvider.of<ChatBloc>(context);
-    // TODO : this do not load at first state
-    chatBloc.dispatch(FetchConversationDetailsEvent(chat));
     super.initState();
+    print('init of $chat');
+    chatBloc = BlocProvider.of<ChatBloc>(context);
+    chatBloc.dispatch(FetchConversationDetailsEvent(chat));
   }
 
 
@@ -38,45 +38,24 @@ class _ConversationPageState extends State<ConversationPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+    print('build of $chat');
     return Column(
       children: <Widget>[
-        Expanded(
-          flex: 2,
-          child: ChatAppBar(),
+        Container(
+          margin: EdgeInsets.only(top: 100),
+          color: Palette.chatBackgroundColor,
+          child: ChatListWidget(chat),
         ),
-        Expanded(
-          flex: 11,
-          child: Container(
-            child: ChatListWidget(),
-            color: Palette.chatBackgroundColor
-          ),
+        SizedBox.fromSize(
+            size: Size.fromHeight(100),
+            child: ChatAppBar(chat)
         )
       ],
     );
-
-//    return SafeArea(
-//      child: Scaffold(
-////        key: _scaffoldKey,
-//        appBar: ChatAppBar(),
-//        body: Stack(
-//          children: <Widget>[
-//            Column(
-//              children: <Widget>[
-//                ChatListWidget(),//Chat list
-////                GestureDetector(
-////                    child: InputWidget(),
-////                    onPanUpdate: (details) {
-////                      if (details.delta.dy <0) {
-////                        _scaffoldKey.currentState.showBottomSheet<Null>((BuildContext context) {
-////                          return ConversationBottomSheetWidget();
-////                        });
-////                      }
-////                    })
-//              ],
-//            )
-//          ],
-//        ),
-//      )
-//    );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => null;
 }

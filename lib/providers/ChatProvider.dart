@@ -37,19 +37,19 @@ class ChatProvider extends BaseChatProvider{
   }
 
   @override
-  Stream<List<Message>> getMessages(String chatId) {
+  Stream<List<Message>> getMessages(String chatId,)  {
     DocumentReference chatDocRef = fireStoreDb.collection(Paths.chatsPath).document(chatId);
-    CollectionReference messagesCollection = chatDocRef.collection(Paths.messagesPath);
-
+    CollectionReference messagesCollection =
+    chatDocRef.collection(Paths.messagesPath);
     return messagesCollection
         .orderBy('timeStamp', descending: true)
+        .limit(20)
         .snapshots()
-        .transform(
-        StreamTransformer<QuerySnapshot, List<Message>>.fromHandlers(
-            handleData: (QuerySnapshot querySnapshot,EventSink<List<Message>> sink) =>
-                mapDocumentToMessage(querySnapshot,sink)
-        )
-    );
+        .transform(StreamTransformer<QuerySnapshot, List<Message>>.fromHandlers(
+        handleData:
+            (QuerySnapshot querySnapshot, EventSink<List<Message>> sink) =>
+            mapDocumentToMessage(querySnapshot, sink)));
+
   }
 
   /*
