@@ -9,5 +9,6 @@ class Assets{
 
   static const String social = 'assets/social.jpg';
 
-  static String placeholder;
+  static const String placeholder = 'assets/placeholder.png';
+
 }
