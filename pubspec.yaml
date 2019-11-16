@@ -19,21 +19,25 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  intl:
-  firebase_auth: ^0.14.0+4 #to auth with firebaseA
+  intl: ^0.15.8
+  rubber: ^0.3.2
+  cupertino_icons: ^0.1.2
+  infinite_listview: ^1.0.0
+  firebase_auth: ^0.14.0+4 #to auth with firebase
   google_sign_in: ^4.0.7 #to auth with google account
-  flutter_bloc: ^0.21.0 #helps in implementing blocs
+  flutter_bloc: ^0.21.0 #heedelps in implementing blocs
   equatable: ^0.5.0 #helps in comparing class using their values
-  cloud_firestore: ^0.12.9+4 #Firebase Database
+  cloud_firestore: ^0.12.9+1 #Firebase Database
   image_picker: ^0.6.1+4 #image picker used for picking images from gallery
-  firebase_storage: ^3.0.6
+  firebase_storage: ^3.0.6 #storage for storing image files
+  flutter_launcher_icons: ^0.7.2+1
   shared_preferences: ^0.5.3+4
   file_picker: ^1.4.0+1
-  rubber: 
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+  emoji_picker: ^0.0.2
+  video_player: ^0.10.2+1
+  flutter_downloader: ^1.2.2
+  downloads_path_provider: ^0.1.0
+  flushbar: ^1.9.0
 
 dev_dependencies:
   flutter_test:
