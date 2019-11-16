@@ -107,3 +107,13 @@ class PageChangedEvent extends ChatEvent {
   @override
   String toString() => 'PageChangedEvent {index: $index, activeChat: $activeChat}';
 }
+
+// hide/show emojikeyboard
+class ToggleEmojiKeyboardEvent extends ChatEvent{
+  final bool showEmojiKeyboard;
+
+  ToggleEmojiKeyboardEvent(this.showEmojiKeyboard);
+
+  @override
+  String toString() => 'ToggleEmojiKeyboardEvent';
+}

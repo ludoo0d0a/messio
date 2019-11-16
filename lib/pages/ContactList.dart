@@ -11,6 +11,7 @@ import 'package:messio/config/Transitions.dart';
 import 'package:messio/widgets/BottomSheetFixed.dart';
 import 'package:messio/widgets/ContactRowWidget.dart';
 import 'package:messio/widgets/GradientFab.dart';
+import 'package:messio/widgets/GradientSnackBar.dart';
 import 'package:messio/widgets/QuickScrollbar.dart';
 
 import 'ConversationPageSlide.dart';
@@ -65,21 +66,12 @@ class _ContactListPageState extends State<ContactListPage> with TickerProviderSt
                 print("BlocListener<ContactsBloc, ContactsState> state:" + state.toString());
                 if (state is AddContactSuccessState) {
                   Navigator.pop(context);
-                  final snackBar = SnackBar(
-                      behavior: SnackBarBehavior.floating,
-                      content: Text("Contact Added Successfully!"));
-                  Scaffold.of(bc).showSnackBar(snackBar);
+                  GradientSnackBar.showMessage(context, "Contact Added Successfully!");
                 } else if (state is ErrorState) {
-                  final snackBar = SnackBar(
-                      behavior: SnackBarBehavior.floating,
-                      content: Text(state.exception.errorMessage()));
-                  Scaffold.of(bc).showSnackBar(snackBar);
+                  GradientSnackBar.showError(context, state.exception.errorMessage());
                 } else if (state is AddContactFailedState) {
                   Navigator.pop(context);
-                  final snackBar = SnackBar(
-                      behavior: SnackBarBehavior.floating,
-                      content: Text(state.exception.errorMessage()));
-                  Scaffold.of(bc).showSnackBar(snackBar);
+                  GradientSnackBar.showError(context, state.exception.errorMessage());
                 } else if (state is ClickedContactState){
                     Navigator.push(context,SlideLeftRoute(page: ConversationPageSlide(startContact: state.contact)));
                 }

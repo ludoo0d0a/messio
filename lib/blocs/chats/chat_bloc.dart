@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:messio/blocs/authentication/model/user.dart';
 import 'package:messio/blocs/chats/bloc.dart';
 import 'package:messio/config/Constants.dart';
@@ -76,6 +77,13 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     if (event is PickedAttachmentEvent) {
       await mapPickedAttachmentEventToState(event);
     }
+    if (event is SendAttachmentEvent) {
+      await mapSendAttachmentEventToState(event);
+    }
+    if (event is ToggleEmojiKeyboardEvent) {
+      yield ToggleEmojiKeyboardState(event.showEmojiKeyboard);
+    }
+
   }
 
   Stream<ChatState> mapFetchMessagesEventToState(
@@ -141,6 +149,21 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     User user = await userDataRepository.getUser(event.chat.username);
     print('FetchedContactDetailsState:'+user.toString());
     yield FetchedContactDetailsState(user, event.chat.username);
+  }
+
+  Future mapSendAttachmentEventToState(SendAttachmentEvent event) async {
+    String url = await storageRepository.uploadFile(
+        event.file, Paths.getAttachmentPathByFileType(event.fileType));
+    String username = SharedObjects.prefs.getString(Constants.sessionUsername);
+    String name = SharedObjects.prefs.getString(Constants.sessionName);
+    Message message;
+    if (event.fileType == FileType.IMAGE)
+      message = ImageMessage(url, DateTime.now().millisecondsSinceEpoch, name, username);
+    else if (event.fileType == FileType.VIDEO)
+      message = VideoMessage(url, DateTime.now().millisecondsSinceEpoch, name, username);
+    else
+      message = FileMessage(url, DateTime.now().millisecondsSinceEpoch, name, username);
+    await chatRepository.sendMessage(event.chatId, message);
   }
 
   @override

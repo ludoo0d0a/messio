@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:messio/blocs/authentication/bloc.dart';
@@ -10,6 +11,8 @@ import 'package:messio/config/Palette.dart';
 import 'package:messio/config/Styles.dart';
 import 'package:messio/config/Transitions.dart';
 import 'package:messio/pages/ContactList.dart';
+
+import 'GradientSnackBar.dart';
 
 
 class ChatAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -112,7 +115,8 @@ class _ChatAppBarState extends State<ChatAppBar> {
                                                           color:
                                                           Palette.secondaryColor,
                                                         ),
-                                                        onPressed: () => {}))),
+                                                        onPressed: () => showAttachmentBottomSheet(context),
+                                                        ))),
                                             Expanded(
                                                 flex: 6,
                                                 child: Container(child:
@@ -194,5 +198,43 @@ class _ChatAppBarState extends State<ChatAppBar> {
     authenticationBloc.dispatch(ClickedLogout());
   }
 
+  showAttachmentBottomSheet(context){
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc){
+          return Container(
+            child:  Wrap(
+              children: <Widget>[
+                ListTile(
+                    leading:  Icon(Icons.image),
+                    title:  Text('Image'),
+                    onTap: () => showFilePicker(FileType.IMAGE)
+                ),
+                ListTile(
+                    leading:  Icon(Icons.videocam),
+                    title:  Text('Video'),
+                    onTap: () => showFilePicker(FileType.VIDEO)
+                ),
+                ListTile(
+                  leading:  Icon(Icons.insert_drive_file),
+                  title:  Text('File'),
+                  onTap: () => showFilePicker(FileType.ANY),
+                ),
+              ],
+            ),
+          );
+        }
+    );
+  }
+
+  showFilePicker(FileType fileType) async {
+    File file = await FilePicker.getFile(type: fileType);
+    chatBloc.dispatch(SendAttachmentEvent(chat.chatId,file,fileType));
+    Navigator.pop(context);
+    GradientSnackBar.showMessage(context, 'Sending attachment..');
+  }
+
 
 }
+
+

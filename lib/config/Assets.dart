@@ -8,4 +8,6 @@ class Assets{
   static const String google_button = 'assets/google.png';
 
   static const String social = 'assets/social.jpg';
+
+  static String placeholder;
 }
