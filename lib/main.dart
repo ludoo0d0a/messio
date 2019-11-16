@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:messio/blocs/authentication/authentication_event.dart';
+import 'package:messio/config/Constants.dart';
 import 'package:messio/pages/ContactList.dart';
-import 'package:messio/pages/ConversationPageSlide.dart';
-//import 'package:messio/pages/ConversationPageSlide.dart';
 import 'package:messio/pages/RegisterPage.dart';
 import 'package:messio/repositories/AuthenticationRepository.dart';
 import 'package:messio/repositories/ChatRepository.dart';
 import 'package:messio/repositories/StorageRepository.dart';
 import 'package:messio/repositories/UserDataRepository.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:path_provider/path_provider.dart';
 
+import 'blocs/attachments/bloc.dart';
 import 'blocs/chats/chat_bloc.dart';
 import 'blocs/chats/chat_event.dart';
 import 'utils/SharedObjects.dart';
@@ -30,6 +31,9 @@ Future<void> main() async {
   final ChatRepository chatRepository = ChatRepository();
 
   SharedObjects.prefs = await CachedSharedPreferences.getInstance();
+
+  Constants.cacheDirPath = (await getTemporaryDirectory()).path;
+  Constants.downloadsDirPath = (await DownloadsPathProvider.downloadsDirectory).path;
 
   runApp(
       MultiBlocProvider(
@@ -53,15 +57,15 @@ Future<void> main() async {
                   storageRepository:  storageRepository,
                   chatRepository: chatRepository
               ),
+            ),
+            BlocProvider<AttachmentsBloc>(
+              builder: (context) => AttachmentsBloc(chatRepository: chatRepository),
             )
           ],
           child: MessioApp(),
       )
   );
 }
-
-
-//=> runApp(MessioApp());
 
 class MessioApp extends StatelessWidget {
   // This widget is the root of your application.
