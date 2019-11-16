@@ -29,4 +29,7 @@ class ChatRepository {
   Future<void> createChatIdForContact(user) => chatProvider.createChatIdForContact(user);
 
   getPreviousMessages(String chatId, Message lastMessage) => chatProvider.getPreviousMessages(chatId, lastMessage);
+
+  Future<List<Message>> getAttachments(String chatId, int type) => chatProvider.getAttachments(chatId, type);
+
 }

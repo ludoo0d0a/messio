@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:messio/blocs/authentication/model/user.dart';
@@ -12,6 +13,7 @@ import 'package:messio/utils/SharedObjects.dart';
 import 'package:messio/utils/MessioException.dart';
 import 'bloc.dart';
 import 'model/Message.dart';
+import 'package:path/path.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final ChatRepository chatRepository;
@@ -74,9 +76,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           SharedObjects.prefs.getString(Constants.sessionUsername));
       await chatRepository.sendMessage(activeChatId, message);
     }
-    if (event is PickedAttachmentEvent) {
-      await mapPickedAttachmentEventToState(event);
-    }
+//    if (event is PickedAttachmentEvent) {
+//      await mapPickedAttachmentEventToState(event);
+//    }
     if (event is SendAttachmentEvent) {
       await mapSendAttachmentEventToState(event);
     }
@@ -106,15 +108,15 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     }
   }
 
-  Future mapPickedAttachmentEventToState(PickedAttachmentEvent event) async {
-    String url = await storageRepository.uploadFile(
-        event.file, Paths.imageAttachmentsPath);
-    String username = SharedObjects.prefs.getString(Constants.sessionUsername);
-    String name = SharedObjects.prefs.getString(Constants.sessionName);
-    Message message = VideoMessage(
-        url, DateTime.now().millisecondsSinceEpoch, name, username);
-    await chatRepository.sendMessage(event.chatId, message);
-  }
+//  Future mapPickedAttachmentEventToState(PickedAttachmentEvent event) async {
+//    String url = await storageRepository.uploadFile(
+//        event.file, Paths.imageAttachmentsPath);
+//    String username = SharedObjects.prefs.getString(Constants.sessionUsername);
+//    String name = SharedObjects.prefs.getString(Constants.sessionName);
+//    Message message = VideoMessage(
+//        url, DateTime.now().millisecondsSinceEpoch, name, username);
+//    await chatRepository.sendMessage(event.chatId, message);
+//  }
 
 
   Stream<ChatState> mapFetchChatListEventToState(
@@ -152,17 +154,23 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   Future mapSendAttachmentEventToState(SendAttachmentEvent event) async {
+    File file = event.file;
+    String fileName = basename(file.path);
     String url = await storageRepository.uploadFile(
-        event.file, Paths.getAttachmentPathByFileType(event.fileType));
+        file, Paths.getAttachmentPathByFileType(event.fileType));
     String username = SharedObjects.prefs.getString(Constants.sessionUsername);
     String name = SharedObjects.prefs.getString(Constants.sessionName);
+    print('File Name: $fileName');
     Message message;
     if (event.fileType == FileType.IMAGE)
-      message = ImageMessage(url, DateTime.now().millisecondsSinceEpoch, name, username);
+      message = ImageMessage(
+          url, fileName, DateTime.now().millisecondsSinceEpoch, name, username);
     else if (event.fileType == FileType.VIDEO)
-      message = VideoMessage(url, DateTime.now().millisecondsSinceEpoch, name, username);
+      message = VideoMessage(
+          url, fileName, DateTime.now().millisecondsSinceEpoch, name, username);
     else
-      message = FileMessage(url, DateTime.now().millisecondsSinceEpoch, name, username);
+      message = FileMessage(
+          url, fileName, DateTime.now().millisecondsSinceEpoch, name, username);
     await chatRepository.sendMessage(event.chatId, message);
   }
 

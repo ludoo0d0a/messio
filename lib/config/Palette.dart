@@ -24,4 +24,7 @@ class Palette{
   static Color errorGradientStartColor = Color(0xffd50000);
   static Color errorGradientEndColor = Color(0xff9b0000);
 
+  static Color lightGreyColor = Color(0xffd3d3d3);
+
+
 }
