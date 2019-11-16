@@ -8,6 +8,7 @@ import 'package:messio/config/Assets.dart';
 import 'package:messio/config/Palette.dart';
 import 'package:intl/intl.dart';
 import 'package:messio/config/Styles.dart';
+import 'package:messio/utils/SharedObjects.dart';
 import 'package:messio/widgets/BottomSheetFixed.dart';
 import 'package:messio/widgets/VideoPlayerWidget.dart';
 
@@ -169,7 +170,7 @@ class ChatItemWidget extends StatelessWidget {
                           ? Palette.selfMessageColor
                           : Palette.otherMessageColor,
                     ),
-                    onPressed: () => downloadFile(message.fileUrl)))
+                    onPressed: () => SharedObjects.downloadFile(message.fileUrl,message.fileName)))
           ],
         ),
       );
@@ -203,20 +204,20 @@ class ChatItemWidget extends StatelessWidget {
           return VideoPlayerWidget(videoUrl);
         });
   }
-
-  /*
-  Supporting only for android for now
-   */
-  downloadFile(String fileUrl) async {
-    final Directory downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
-    final String downloadsPath = downloadsDirectory.path;
-    await FlutterDownloader.enqueue(
-      url: fileUrl,
-      savedDir: downloadsPath,
-      showNotification: true, // show download progress in status bar (for Android)
-      openFileFromNotification: true, // click on notification to open downloaded file (for Android)
-    );
-  }
+//
+//  /*
+//  Supporting only for android for now
+//   */
+//  downloadFile(String fileUrl) async {
+//    final Directory downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
+//    final String downloadsPath = downloadsDirectory.path;
+//    await FlutterDownloader.enqueue(
+//      url: fileUrl,
+//      savedDir: downloadsPath,
+//      showNotification: true, // show download progress in status bar (for Android)
+//      openFileFromNotification: true, // click on notification to open downloaded file (for Android)
+//    );
+//  }
 
 
 }
